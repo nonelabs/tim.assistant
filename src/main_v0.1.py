@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 llm = Llama(
-    model_path="./models/gemma-2-27b-it-Q3_K_L.gguf",
+    model_path="./models/gemma-2-27b-it-Q5_K_M.gguf",
     n_gpu_layers=-1,  # Uncomment to use GPU acceleration
     seed=1337,  # Uncomment to set a specific seed
     n_ctx=4092,  # Uncomment to increase the context window
@@ -102,7 +102,7 @@ async def main() -> None:
     PASSWORD = args.password if args.password else PASSWORD
 
     client = AsyncClient(f"https://{HOMESERVER}", USERNAME)
-    await client.login(args.login)
+    await client.login(PASSWORD)
     client.add_event_callback(message_callback, (RoomMessageText, RoomMessageAudio))
     client.add_event_callback(invite_callback, InviteMemberEvent)
     await client.sync_forever(timeout=30000)
