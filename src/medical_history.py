@@ -216,6 +216,7 @@ class MedicalHistory:
             self.report += self.internal_instruction(
                 "Erstelle eine vollständige Zusammenfassung aller Beschwerden und Vorerkrankungen von denen der Patient berichtet hat!"
             )
+
             self.current_query_group = next(self.query_group_iter, None)
             if not self.current_query_group is None: 
                 self.context = [
@@ -262,6 +263,14 @@ class MedicalHistory:
             if self.internal_instruction(
                 "Die Nachricht des Nutzers lautet:\""
                 + answer
+                + '" Klassifiziere: Will der Patient das Gespräch beenden? '
+                ' Antworte mit "ja" oder "nein".',
+                ["ja", "nein"],"ja"
+            ):
+                self.query_group_iter = None
+            if self.internal_instruction(
+                "Die Nachricht des Nutzers lautet:\""
+                + answer
                 + '" Klassifiziere: Handelt es sich bei der Nachricht um eine Aussage oder Frage, die medizinisch relevant ist und im Kontext der Befragung steht ?'
                 ' Antworte mit "ja" oder "nein".',
                 ["ja", "nein"],"ja"
@@ -270,9 +279,9 @@ class MedicalHistory:
             else:
                 del self.context[-2:]
                 return self.internal_instruction(
-                    'Antworten Sie kurz und knapp auf die Aussage des Patienten: '
+                    'Gehen Sie kurz und knapp auf die Aussage des Patienten ein: '
                     + answer
-                    + '. Sagen Sie ihm er solle sich erstmal auf die Befragung fokussieren.'
+                    + '. Sagen Sie ihm dann er solle sich erstmal auf die Befragung fokussieren, bzw. plausible Antworten geben.'
                     'Wiederhole dann nochmal die letzte Frage an den Patienten.'
                 )
             return None
