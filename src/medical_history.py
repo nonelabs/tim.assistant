@@ -258,16 +258,7 @@ class MedicalHistory:
                 self.status = "completed"
                 return x["choices"][0]["message"]["content"]
         else:
-            res = self.classify_message()
             answer = self.context[-2]['content']
-            if self.internal_instruction(
-                "Die Nachricht des Nutzers lautet:\""
-                + answer
-                + '" Klassifiziere: Will der Patient das Gespräch beenden? '
-                ' Antworte mit "ja" oder "nein".',
-                ["ja", "nein"],"ja"
-            ):
-                self.query_group_iter = None
             if self.internal_instruction(
                 "Die Nachricht des Nutzers lautet:\""
                 + answer
