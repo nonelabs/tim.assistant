@@ -1,0 +1,65 @@
+{
+  "prompt": "Instruction: Der Patient soll angeben ob bei ihm eine chronische oder bestehende Hauterkrankunge diagnostiziert wurde. Gib dem Patienten zu Beginn eine Liste mit allen Erkrankungen um die es geht. Frage ihn, ob eine oder mehrere dieser Erkrankungen diagnostiziert wurden. Stelle danach eine Frage nach der anderen bis alle relevanten Frage zu den diagnostizierten Erkrankungen geklärt sind. Danach beende das Gespräch.",
+  "query_group": {
+    "neurodermitis": {
+      "name": "Neurodermitis",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "24079001",
+        "display": "Atopic dermatitis"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals Neurodermitis (atopische Dermatitis) diagnostiziert?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Neurodermitis-Diagnose hinweist. Achte auf Erwähnungen von juckenden, trockenen Hautausschlägen, besonders in den Ellenbeugen, Kniekehlen oder im Gesicht. Antworte mit true, wenn die Antwort auf Neurodermitis hinweist, sonst mit false.",
+      "additional_info": "Neurodermitis ist eine chronische, juckende Hauterkrankung, die oft in der Kindheit beginnt. Sie ist gekennzeichnet durch trockene, gerötete und schuppige Hautstellen, die stark jucken können. Typische Stellen sind Ellenbeugen, Kniekehlen und das Gesicht."
+    },
+    "psoriasis": {
+      "name": "Psoriasis",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "9014002",
+        "display": "Psoriasis"
+      },
+      "inquiry_prompt": "Hat ein Arzt bei Ihnen jemals Psoriasis (Schuppenflechte) festgestellt?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine Psoriasis-Diagnose hindeutet. Berücksichtige Hinweise auf silbrig-schuppige, rote Hautflecken, besonders an Ellbogen, Knien oder der Kopfhaut. Antworte mit true, wenn die Antwort auf Psoriasis hinweist, sonst mit false.",
+      "additional_info": "Psoriasis ist eine chronische Autoimmunerkrankung der Haut. Sie verursacht typischerweise rötliche, schuppige Flecken, oft an Ellbogen, Knien und der Kopfhaut. Die Schuppen sind oft silbrig-weiß. Psoriasis kann in Schüben auftreten und ist nicht ansteckend."
+    },
+    "akne": {
+      "name": "Akne",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "11381005",
+        "display": "Acne vulgaris"
+      },
+      "inquiry_prompt": "Haben Sie jemals unter schwerer Akne gelitten oder wurden Sie dafür behandelt?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine signifikante Akne-Erkrankung hinweist. Achte auf Erwähnungen von anhaltenden oder schweren Pickeln, Mitessern oder Zysten, besonders im Gesicht, auf der Brust oder dem Rücken. Antworte mit true, wenn die Antwort auf eine behandlungsbedürftige Akne hinweist, sonst mit false.",
+      "additional_info": "Akne ist eine häufige Hauterkrankung, die durch verstopfte Poren, Pickel und manchmal tiefere Knoten oder Zysten gekennzeichnet ist. Sie tritt oft in der Pubertät auf, kann aber auch Erwachsene betreffen. Schwere Akne kann zu Narbenbildung führen und eine ärztliche Behandlung erfordern."
+    },
+    "rosazea": {
+      "name": "Rosazea",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "398909004",
+        "display": "Rosacea"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals Rosazea diagnostiziert?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine Rosazea-Diagnose hindeutet. Berücksichtige Hinweise auf anhaltende Rötungen im Gesicht, sichtbare Blutgefäße oder Pickeln ähnliche Erhebungen, besonders auf Wangen, Nase oder Stirn. Antworte mit true, wenn die Antwort auf Rosazea hinweist, sonst mit false.",
+      "additional_info": "Rosazea ist eine chronische Hauterkrankung, die hauptsächlich das Gesicht betrifft. Sie zeichnet sich durch anhaltende Rötungen, sichtbare Blutgefäße und manchmal Pickel-ähnliche Erhebungen aus. Rosazea tritt häufig bei Menschen mit heller Haut im mittleren Lebensalter auf und kann durch bestimmte Trigger wie Hitze oder Alkohol verschlimmert werden."
+    },
+    "hautkrebs": {
+      "name": "Hautkrebs",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "372130007",
+        "display": "Malignant neoplasm of skin"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals eine Form von Hautkrebs diagnostiziert?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Hautkrebs-Diagnose hinweist. Achte auf klare Aussagen über Hautkrebs, Melanome, Basalzellkarzinome oder Plattenepithelkarzinome. Berücksichtige auch Erwähnungen von chirurgischen Eingriffen zur Entfernung verdächtiger Hautstellen. Antworte mit true, wenn die Antwort auf Hautkrebs hinweist, sonst mit false.",
+      "additional_info": "Hautkrebs umfasst verschiedene Arten bösartiger Tumoren der Haut. Die häufigsten Formen sind Basalzellkarzinom, Plattenepithelkarzinom und das gefährlichere Melanom. Warnzeichen können sich verändernde Muttermale, neue Hautveränderungen oder nicht heilende Wunden sein. Regelmäßige Hautuntersuchungen sind wichtig für die Früherkennung."
+    }
+  }
+}

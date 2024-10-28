@@ -1,0 +1,89 @@
+{
+  "prompt":"Instruction: Der Patient soll angeben ob er an allgemeinen Beschwerden leidet. Gib dem Patienten zu Beginn eine Liste mit allen Beschwerden um die es geht. Frage ihn ob eine oder mehrere dieser Beschwerden vorliegen. Stelle danach eine Frage nach der anderen bis alle relevanten Frage zu den folgenden Beschwerden geklärt sind. Danach beende das Gespräch.",
+  "query_group": {
+    "fieber": {
+      "name": "Fieber",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "386661006",
+        "display": "Fever (finding)"
+      },
+      "inquiry_prompt": "Hatten Sie in letzter Zeit Fieber oder erhöhte Temperatur?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Fieber hinweist. Berücksichtigen Sie Beschreibungen von erhöhter Körpertemperatur, Schüttelfrost oder Schweißausbrüchen. Antworten Sie mit true, wenn Fieber erwähnt wird, ansonsten mit false.",
+      "additional_info": "Fieber ist oft ein Zeichen für eine Infektion oder Entzündung im Körper. In der Regel spricht man von Fieber erst wenn einem das Hirn schmilzt. Beachten Sie die Höhe der Temperatur, Dauer des Fiebers und begleitende Symptome."
+    },
+    "gewichtsveränderung": {
+      "name": "Gewichtsveränderung",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "64520004",
+        "display": "Change in body weight (finding)"
+      },
+      "inquiry_prompt": "Haben Sie in letzter Zeit unbeabsichtigt an Gewicht zu- oder abgenommen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf eine signifikante Gewichtsveränderung hinweist. Achten Sie auf Beschreibungen von unerklärlicher Gewichtszunahme oder -abnahme. Antworten Sie mit true, wenn eine Gewichtsveränderung erwähnt wird, ansonsten mit false.",
+      "additional_info": "Unbeabsichtigte Gewichtsveränderungen können auf verschiedene gesundheitliche Probleme hindeuten. Beachten Sie das Ausmaß der Veränderung, den Zeitraum und ob sie mit Änderungen des Appetits oder der körperlichen Aktivität einhergehen."
+    },
+    "nachtschweiß": {
+      "name": "Nachtschweiß",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "42984000",
+        "display": "Night sweats (finding)"
+      },
+      "inquiry_prompt": "Wachen Sie nachts häufig verschwitzt auf oder leiden Sie unter starkem Schwitzen im Schlaf?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Nachtschweiß hinweist. Berücksichtigen Sie Beschreibungen von starkem Schwitzen während des Schlafs, das zum Aufwachen oder Wechseln der Kleidung führt. Antworten Sie mit true, wenn Nachtschweiß erwähnt wird, ansonsten mit false.",
+      "additional_info": "Nachtschweiß kann auf verschiedene Erkrankungen hindeuten, darunter Infektionen, hormonelle Störungen oder bestimmte Krebsarten. Beachten Sie die Häufigkeit und Intensität der Episoden."
+    },
+    "müdigkeit": {
+      "name": "Müdigkeit",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "84229001",
+        "display": "Fatigue (finding)"
+      },
+      "inquiry_prompt": "Fühlen Sie sich häufig müde oder erschöpft, auch wenn Sie ausreichend geschlafen haben?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf anhaltende Müdigkeit oder Erschöpfung hinweist. Achten Sie auf Beschreibungen von Energiemangel, ständiger Müdigkeit oder dem Gefühl, nicht erholt zu sein. Antworten Sie mit true, wenn Müdigkeit als signifikantes Problem erwähnt wird, ansonsten mit false.",
+      "additional_info": "Anhaltende Müdigkeit kann auf verschiedene Erkrankungen hinweisen, von Schlafstörungen bis hin zu chronischen Erkrankungen. Beachten Sie die Dauer der Symptome und deren Auswirkungen auf den Alltag."
+    },
+    "schwindel": {
+      "name": "Schwindel",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "404640003",
+        "display": "Dizziness (finding)"
+      },
+      "inquiry_prompt": "Leiden Sie häufig unter Schwindel oder einem Gefühl von Benommenheit?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Schwindel hinweist. Berücksichtigen Sie Beschreibungen von Drehschwindel, Schwankschwindel, Benommenheit oder Gleichgewichtsstörungen. Antworten Sie mit true, wenn Schwindel erwähnt wird, ansonsten mit false.",
+      "additional_info": "Schwindel kann verschiedene Ursachen haben, von Innenohrproblemen bis hin zu neurologischen Störungen. Beachten Sie die Art des Schwindels, auslösende Faktoren und begleitende Symptome wie Übelkeit oder Hörstörungen."
+    },
+    "hautveränderungen": {
+      "name": "Hautveränderungen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "271807003",
+        "display": "Skin feature (finding)"
+      },
+      "inquiry_prompt": "Haben Sie irgendwelche auffälligen Veränderungen Ihrer Haut bemerkt, wie neue Muttermale, Ausschläge oder Verfärbungen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Hautveränderungen hinweist. Achten Sie auf Beschreibungen von neuen oder veränderten Muttermalen, Ausschlägen, Verfärbungen oder anderen Hautauffälligkeiten. Antworten Sie mit true, wenn Hautveränderungen erwähnt werden, ansonsten mit false.",
+      "additional_info": "Hautveränderungen können auf verschiedene gesundheitliche Probleme hinweisen, von harmlosen Hauterkrankungen bis hin zu ernsthaften systemischen Erkrankungen oder Hautkrebs. Beachten Sie die Art, Lokalisation und Entwicklung der Veränderungen."
+    },
+    "sehstörungen": {
+      "name": "Sehstörungen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "63102001",
+        "display": "Visual disturbance (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Veränderungen in Ihrem Sehvermögen bemerkt, wie verschwommenes Sehen, Doppelbilder oder Lichtempfindlichkeit?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Sehstörungen hinweist. Berücksichtigen Sie Beschreibungen von verschwommenem Sehen, Doppelbildern, Lichtempfindlichkeit, Sehausfällen oder anderen Sehproblemen. Antworten Sie mit true, wenn Sehstörungen erwähnt werden, ansonsten mit false.",
+      "additional_info": "Sehstörungen können auf Augenprobleme, aber auch auf neurologische oder systemische Erkrankungen hinweisen. Beachten Sie die Art der Sehstörung, ob sie plötzlich oder allmählich aufgetreten ist, und ob sie ein oder beide Augen betrifft."
+    }
+  }
+}

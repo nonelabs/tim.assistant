@@ -1,0 +1,77 @@
+{
+  "prompt": "Instruction: Der Patient soll angeben ob er an Beschwerden des Herzens oder Kreislaufsystems leidet. Gib dem Patienten zu Beginn eine Liste mit allen Beschwerden um die es geht. Frage ihn ob er an einer oder mehreren dieser Beschwerden leidet. Stelle danach eine Frage nach der anderen bis alle relevanten Frage zu den folgenden Beschwerden geklärt sind. Danach beende das Gespräch.",
+  "query_group": {
+    "brustschmerzen": {
+      "name": "Brustschmerzen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "29857009",
+        "display": "Chest pain (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Schmerzen oder ein Druckgefühl in der Brust?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Brustschmerzen oder Druckgefühl in der Brust hinweist. Achten Sie auf Beschreibungen von Schmerzen, Enge, Druck oder Brennen im Brustbereich. Antworten Sie mit true, wenn Brustschmerzen oder ähnliche Symptome erwähnt werden, ansonsten mit false.",
+      "additional_info": "Brustschmerzen können auf verschiedene Herzprobleme hinweisen, insbesondere wenn sie mit Anstrengung, Stress oder Atemnot verbunden sind. Beachten Sie die Dauer, Intensität und auslösende Faktoren der Schmerzen."
+    },
+    "kurzatmigkeit": {
+      "name": "Kurzatmigkeit",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "267036007",
+        "display": "Dyspnea (finding)"
+      },
+      "inquiry_prompt": "Fühlen Sie sich häufig kurzatmig oder außer Atem, besonders bei Anstrengung?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Kurzatmigkeit oder Atemnot hinweist. Berücksichtigen Sie Beschreibungen von Schwierigkeiten beim Atmen, insbesondere bei körperlicher Aktivität oder im Liegen. Antworten Sie mit true, wenn Kurzatmigkeit erwähnt wird, ansonsten mit false.",
+      "additional_info": "Kurzatmigkeit kann auf Herz- oder Lungenprobleme hindeuten. Achten Sie darauf, ob die Symptome in Ruhe oder bei Anstrengung auftreten, und ob sie sich im Liegen verschlimmern."
+    },
+    "herzrhythmusstörungen": {
+      "name": "Herzrhythmusstörungen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "698247007",
+        "display": "Cardiac arrhythmia (disorder)"
+      },
+      "inquiry_prompt": "Haben Sie jemals ein unregelmäßiges Herzschlagen, Herzrasen oder Herzstolpern bemerkt?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Herzrhythmusstörungen hinweist. Achten Sie auf Beschreibungen von unregelmäßigem Herzschlag, Herzrasen, Herzstolpern oder dem Gefühl von Aussetzen des Herzschlags. Antworten Sie mit true, wenn solche Symptome erwähnt werden, ansonsten mit false.",
+      "additional_info": "Herzrhythmusstörungen können sich als zu schneller, zu langsamer oder unregelmäßiger Herzschlag äußern. Beachten Sie die Häufigkeit und Dauer der Episoden sowie begleitende Symptome wie Schwindel oder Schwächegefühl."
+    },
+    "ödeme": {
+      "name": "Ödeme",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "267038008",
+        "display": "Edema (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Schwellungen an den Knöcheln, Füßen oder Beinen bemerkt?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Ödeme oder Schwellungen hinweist, insbesondere an den unteren Extremitäten. Berücksichtigen Sie Beschreibungen von geschwollenen Knöcheln, Füßen oder Beinen, besonders am Ende des Tages. Antworten Sie mit true, wenn Ödeme erwähnt werden, ansonsten mit false.",
+      "additional_info": "Ödeme, besonders an den Beinen, können auf eine Herzschwäche hindeuten. Achten Sie auf die Lokalisation der Schwellungen, ob sie im Tagesverlauf zunehmen und ob sie durch Hochlegen der Beine abschwellen."
+    },
+    "synkope": {
+      "name": "Synkope",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "271594007",
+        "display": "Syncope (disorder)"
+      },
+      "inquiry_prompt": "Sind Sie schon einmal ohnmächtig geworden oder haben Sie Episoden von Schwindel oder Benommenheit erlebt?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Synkopen (Ohnmacht) oder präsynkopale Zustände (Schwindel, Benommenheit) hinweist. Achten Sie auf Beschreibungen von Bewusstlosigkeit, Beinahe-Ohnmacht oder plötzlichem starkem Schwindel. Antworten Sie mit true, wenn solche Episoden erwähnt werden, ansonsten mit false.",
+      "additional_info": "Synkopen können auf verschiedene Herzprobleme hinweisen, insbesondere wenn sie plötzlich und ohne Vorwarnung auftreten. Beachten Sie die Häufigkeit, Dauer und Umstände der Episoden sowie etwaige Verletzungen durch Stürze."
+    },
+    "belastbarkeit": {
+      "name": "Eingeschränkte Belastbarkeit",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "248242006",
+        "display": "Difficulty performing exercise (finding)"
+      },
+      "inquiry_prompt": "Fühlen Sie sich in Ihrer körperlichen Belastbarkeit eingeschränkt, z.B. beim Treppensteigen oder längeren Gehstrecken?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf eine eingeschränkte körperliche Belastbarkeit hinweist. Berücksichtigen Sie Beschreibungen von Erschöpfung, Atemnot oder Herzbeschwerden bei körperlichen Aktivitäten, die früher problemlos bewältigt wurden. Antworten Sie mit true, wenn eine eingeschränkte Belastbarkeit erwähnt wird, ansonsten mit false.",
+      "additional_info": "Eine eingeschränkte Belastbarkeit kann auf Herz-Kreislauf-Probleme hindeuten. Achten Sie darauf, welche Aktivitäten Beschwerden verursachen und ob sich die Belastbarkeit im Laufe der Zeit verändert hat."
+    }
+  }
+}

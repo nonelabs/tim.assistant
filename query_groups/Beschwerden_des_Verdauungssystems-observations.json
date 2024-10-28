@@ -1,0 +1,101 @@
+{
+  "prompt": "Instruction: Der Patient soll angeben ob er an Beschwerden der der Verdauungssystems leidet. Gib dem Patienten zu Beginn eine Liste mit allen Beschwerden um die es geht. Frage ihn ob eine oder mehrere dieser Beschwerden vorliegen. Stelle danach eine Frage nach der anderen bis alle relevanten Frage zu den folgenden Beschwerden geklärt sind. Danach beende das Gespräch.",
+  "query_group": {
+    "bauchschmerzen": {
+      "name": "Bauchschmerzen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "21522001",
+        "display": "Abdominal pain (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Bauchschmerzen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Bauchschmerzen hinweist. Berücksichtigen Sie Beschreibungen von Schmerzen, Krämpfen oder Unbehagen im Bauchbereich. Antworten Sie mit true, wenn Bauchschmerzen erwähnt werden, ansonsten mit false.",
+      "additional_info": "Bauchschmerzen können sich als stechend, krampfartig oder als dumpfer Schmerz äußern. Achten Sie auf die genaue Lokalisation (z.B. Oberbauch, Unterbauch) und ob die Schmerzen wandern."
+    },
+    "übelkeit": {
+      "name": "Übelkeit",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "422587007",
+        "display": "Nausea (finding)"
+      },
+      "inquiry_prompt": "Fühlen Sie sich übel?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Übelkeit hinweist. Achten Sie auf Beschreibungen von Unwohlsein oder dem Gefühl, sich übergeben zu müssen. Antworten Sie mit true, wenn Übelkeit beschrieben wird, ansonsten mit false.",
+      "additional_info": "Übelkeit ist ein unangenehmes Gefühl im Magen oder Rachen, oft verbunden mit dem Drang, sich zu übergeben. Es kann mit oder ohne Erbrechen auftreten."
+    },
+    "erbrechen": {
+      "name": "Erbrechen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "422400008",
+        "display": "Vomiting (disorder)"
+      },
+      "inquiry_prompt": "Mussten Sie sich erbrechen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Erbrechen hinweist. Antworten Sie mit true, wenn Erbrechen oder Würgen mit Auswurf von Mageninhalt erwähnt wird, ansonsten mit false.",
+      "additional_info": "Beim Erbrechen wird Mageninhalt durch den Mund ausgestoßen. Achten Sie auf die Häufigkeit, Menge und Beschaffenheit des Erbrochenen (z.B. Nahrungsreste, Galle, Blut)."
+    },
+    "durchfall": {
+      "name": "Durchfall",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "62315008",
+        "display": "Diarrhea (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Durchfall?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Durchfall hinweist. Berücksichtigen Sie Beschreibungen von häufigem, flüssigem Stuhlgang. Antworten Sie mit true, wenn Durchfall erwähnt wird, ansonsten mit false.",
+      "additional_info": "Durchfall äußert sich als häufiger, flüssiger oder breiiger Stuhlgang. Achten Sie auf die Häufigkeit, Konsistenz und mögliche Beimengungen (z.B. Blut, Schleim)."
+    },
+    "verstopfung": {
+      "name": "Verstopfung",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "14760008",
+        "display": "Constipation (finding)"
+      },
+      "inquiry_prompt": "Leiden Sie unter Verstopfung?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Verstopfung hinweist. Achten Sie auf Beschreibungen von seltenem, hartem Stuhlgang oder Schwierigkeiten beim Stuhlgang. Antworten Sie mit true, wenn Verstopfung beschrieben wird, ansonsten mit false.",
+      "additional_info": "Verstopfung zeigt sich durch seltenen (weniger als dreimal pro Woche) oder harten Stuhlgang, oft verbunden mit Schwierigkeiten oder Schmerzen beim Stuhlgang."
+    },
+    "blähungen": {
+      "name": "Blähungen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "249525004",
+        "display": "Flatulence, eructation and bloating (finding)"
+      },
+      "inquiry_prompt": "Haben Sie vermehrt Blähungen oder ein Völlegefühl?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Blähungen oder ein Völlegefühl hinweist. Berücksichtigen Sie Beschreibungen von Gasansammlungen im Bauch, Aufstoßen oder einem aufgeblähten Gefühl. Antworten Sie mit true, wenn Blähungen oder Völlegefühl erwähnt werden, ansonsten mit false.",
+      "additional_info": "Blähungen äußern sich als vermehrte Gasansammlung im Magen-Darm-Trakt, oft verbunden mit einem Gefühl der Spannung oder Völle im Bauch, häufigem Aufstoßen oder vermehrtem Abgang von Darmgasen."
+    },
+    "blut_im_urin": {
+      "name": "Blut im Urin",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "34436003",
+        "display": "Hematuria (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Blut in Ihrem Urin bemerkt?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Blut im Urin hinweist. Achten Sie auf Beschreibungen von rotem oder bräunlichem Urin oder sichtbaren Blutspuren. Antworten Sie mit true, wenn Blut im Urin erwähnt wird, ansonsten mit false.",
+      "additional_info": "Blut im Urin kann sichtbar (makroskopisch) oder nur unter dem Mikroskop erkennbar (mikroskopisch) sein. Beachten Sie die Häufigkeit, Menge und begleitende Symptome wie Schmerzen beim Wasserlassen."
+    },
+    "probleme_beim_wasserlassen": {
+      "name": "Probleme beim Wasserlassen/-halten",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "49650001",
+        "display": "Urinary tract finding (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Probleme beim Wasserlassen oder -halten?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Probleme beim Wasserlassen oder -halten hinweist. Achten Sie auf Beschreibungen von häufigem Harndrang, Schwierigkeiten beim Urinieren, unvollständiger Blasenentleerung oder unwillkürlichem Harnverlust. Antworten Sie mit true, wenn solche Probleme erwähnt werden, ansonsten mit false.",
+      "additional_info": "Probleme beim Wasserlassen oder -halten können sich als häufiger Harndrang, Schwierigkeiten beim Urinieren, Gefühl der unvollständigen Blasenentleerung oder Inkontinenz äußern. Beachten Sie die Art der Beschwerden, deren Häufigkeit und Auswirkungen auf den Alltag."
+    }
+  }
+}

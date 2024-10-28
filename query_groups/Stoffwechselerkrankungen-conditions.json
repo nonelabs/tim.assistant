@@ -1,0 +1,77 @@
+{
+  "prompt": "Instruction: Der Patient soll angeben ob bei ihm eine sonstige chronische oder bestehende Stoffwechselerkrankungiagnostiziert wurde. Gib dem Patienten zu Beginn eine Liste mit allen Erkrankungen um die es geht. Frage ihn ob eine oder mehrere davon bei ihm diagnostiziert wurden. Falls ja, stelle danach eine Frage nach der anderen bis alle relevanten Frage zu den diagnosizierten Erkrankungen geklärt sind. Danach beende das Gespräch.",
+  "query_group": {
+    "diabetes_mellitus": {
+      "name": "Diabetes mellitus",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "73211009",
+        "display": "Diabetes mellitus"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals Diabetes (Zuckerkrankheit) diagnostiziert?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Diabetes-Diagnose hindeutet. Achte auf Erwähnungen von erhöhtem Blutzucker, Typ-1- oder Typ-2-Diabetes, Insulinabhängigkeit oder der Einnahme von Diabetesmedikamenten. Antworte mit true, wenn die Antwort auf Diabetes hinweist, sonst mit false.",
+      "additional_info": "Diabetes mellitus ist eine Stoffwechselerkrankung, bei der der Körper Probleme mit der Regulierung des Blutzuckerspiegels hat. Es gibt hauptsächlich zwei Typen: Typ 1 (insulinabhängig) und Typ 2 (anfangs oft nicht insulinabhängig). Symptome können vermehrter Durst, häufiges Wasserlassen und unerklärbarer Gewichtsverlust sein. Die Behandlung umfasst Diät, Bewegung, Medikamente und bei Typ 1 immer Insulin."
+    },
+    "hypercholesterinaemie": {
+      "name": "Hypercholesterinämie (Hohes Cholesterin)",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "13644009",
+        "display": "Hypercholesterolemia"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals ein erhöhter Cholesterinspiegel festgestellt?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf einen erhöhten Cholesterinspiegel hindeutet. Berücksichtige Hinweise auf hohe Cholesterinwerte in Bluttests, die Einnahme von Statinen oder anderen cholesterinsenkenden Medikamenten. Antworte mit true, wenn die Antwort auf Hypercholesterinämie hinweist, sonst mit false.",
+      "additional_info": "Hypercholesterinämie bezeichnet einen erhöhten Cholesterinspiegel im Blut. Es verursacht keine direkten Symptome, erhöht aber das Risiko für Herz-Kreislauf-Erkrankungen. Die Diagnose erfolgt durch einen Bluttest. Die Behandlung umfasst oft Änderungen des Lebensstils (Ernährung, Bewegung) und bei Bedarf Medikamente wie Statine."
+    },
+    "schilddruesenerkrankung": {
+      "name": "Schilddrüsenerkrankung",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "14304000",
+        "display": "Disorder of thyroid gland"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals eine Schilddrüsenerkrankung diagnostiziert?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Schilddrüsenerkrankung hindeutet. Achte auf Erwähnungen von Über- oder Unterfunktion der Schilddrüse, Hashimoto-Thyreoiditis, Morbus Basedow, Schilddrüsenknoten oder der Einnahme von Schilddrüsenhormonen. Antworte mit true, wenn die Antwort auf eine Schilddrüsenerkrankung hinweist, sonst mit false.",
+      "additional_info": "Schilddrüsenerkrankungen können die Produktion von Schilddrüsenhormonen beeinflussen. Häufige Formen sind die Überfunktion (z.B. Morbus Basedow) und die Unterfunktion (z.B. Hashimoto-Thyreoiditis). Symptome können Gewichtsveränderungen, Müdigkeit, Nervosität, Herzrasen oder Kälte-/Wärmeempfindlichkeit sein. Die Behandlung hängt von der spezifischen Erkrankung ab und kann Medikamente oder in seltenen Fällen eine Operation umfassen."
+    },
+    "gicht": {
+      "name": "Gicht",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "90560007",
+        "display": "Gout"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals Gicht diagnostiziert?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine Gicht-Diagnose hindeutet. Berücksichtige Hinweise auf plötzliche, starke Gelenkschmerzen, besonders im großen Zeh, geschwollene und gerötete Gelenke oder erhöhte Harnsäurewerte. Antworte mit true, wenn die Antwort auf Gicht hinweist, sonst mit false.",
+      "additional_info": "Gicht ist eine Form der Arthritis, die durch erhöhte Harnsäurewerte im Blut verursacht wird. Sie führt zu plötzlichen, intensiven Schmerzattacken, oft im großen Zeh. Die betroffenen Gelenke können geschwollen, gerötet und sehr berührungsempfindlich sein. Die Behandlung umfasst Medikamente zur Schmerzlinderung und zur Senkung der Harnsäurewerte sowie Änderungen der Ernährung."
+    },
+    "osteoporose": {
+      "name": "Osteoporose",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "64859006",
+        "display": "Osteoporosis"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals Osteoporose (Knochenschwund) diagnostiziert?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Osteoporose-Diagnose hindeutet. Achte auf Erwähnungen von verminderter Knochendichte, erhöhtem Knochenbruchrisiko, Knochendichtemessungen oder der Einnahme von Osteoporose-Medikamenten. Antworte mit true, wenn die Antwort auf Osteoporose hinweist, sonst mit false.",
+      "additional_info": "Osteoporose ist eine Erkrankung, bei der die Knochen an Dichte und Qualität verlieren, was zu einem erhöhten Frakturrisiko führt. Sie verursacht keine direkten Symptome, bis es zu einem Knochenbruch kommt. Risikofaktoren sind Alter, weibliches Geschlecht, Untergewicht und Mangel an Calcium und Vitamin D. Die Behandlung umfasst Lebensstiländerungen, Calcium- und Vitamin-D-Ergänzung sowie spezielle Medikamente zur Stärkung der Knochen."
+    },
+    "adipositas": {
+      "name": "Adipositas",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "414916001",
+        "display": "Obesity"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals Adipositas (starkes Übergewicht) diagnostiziert?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine Adipositas-Diagnose hindeutet. Berücksichtige Hinweise auf einen Body-Mass-Index (BMI) über 30, starkes Übergewicht oder die Teilnahme an medizinisch überwachten Gewichtsreduktionsprogrammen. Antworte mit true, wenn die Antwort auf Adipositas hinweist, sonst mit false.",
+      "additional_info": "Adipositas ist definiert als übermäßige Ansammlung von Körperfett, typischerweise mit einem Body-Mass-Index (BMI) von 30 oder höher. Es erhöht das Risiko für viele gesundheitliche Probleme wie Diabetes, Herz-Kreislauf-Erkrankungen und bestimmte Krebsarten. Die Behandlung umfasst Änderungen des Lebensstils (Ernährung und Bewegung), in einigen Fällen Medikamente oder bei schwerer Adipositas auch chirurgische Eingriffe."
+    }
+  }
+}

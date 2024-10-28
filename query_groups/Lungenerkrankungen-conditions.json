@@ -1,0 +1,53 @@
+{
+  "prompt": "Instruction: Der Patient soll angeben ob bei ihm eine chronische oder bestehende Lungenerkrankung diagnostiziert wurde. Gib dem Patienten zu Beginn eine Liste mit allen Erkrankungen um die es geht. Frage ihn ob, eine oder mehrere davon bei ihm diagnostiziert wurden. Stelle danach eine Frage nach der anderen bis alle relevanten Frage zu den diagnosizierten rkrankungen geklärt sind. Danach beende das Gespräch.",
+  "query_group": {
+    "asthma": {
+      "name": "Asthma",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "195967001",
+        "display": "Asthma"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals Asthma diagnostiziert?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Asthma-Diagnose hinweist. Berücksichtige Symptome wie Atemnot, pfeifende Atmung oder wiederholte Bronchitis. Antworte mit true, wenn die Antwort auf Asthma hinweist, sonst mit false.",
+      "additional_info": "Asthma ist eine chronische Lungenerkrankung, die zu Atemnot, pfeifender Atmung und Husten führt, besonders bei Belastung oder in der Nacht. Es wird oft in der Kindheit diagnostiziert, kann aber in jedem Alter auftreten."
+    },
+    "copd": {
+      "name": "COPD",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "13645005",
+        "display": "Chronic obstructive lung disease"
+      },
+      "inquiry_prompt": "Hat ein Arzt bei Ihnen jemals COPD (chronisch obstruktive Lungenerkrankung) festgestellt?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine COPD-Diagnose hindeutet. Achte auf Hinweise wie chronischen Husten, vermehrten Auswurf oder Atemnot bei Anstrengung. Antworte mit true, wenn die Antwort auf COPD hinweist, sonst mit false.",
+      "additional_info": "COPD ist eine fortschreitende Lungenerkrankung, die die Atmung erschwert. Sie tritt häufig bei Rauchern oder ehemaligen Rauchern auf und kann Symptome wie anhaltenden Husten mit Auswurf und Kurzatmigkeit verursachen."
+    },
+    "lungenkrebs": {
+      "name": "Lungenkrebs",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "363358000",
+        "display": "Malignant tumor of lung"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals Lungenkrebs diagnostiziert?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Lungenkrebs-Diagnose hindeutet. Berücksichtige klare Aussagen über eine Krebsdiagnose in der Lunge oder Behandlungen wie Chemotherapie oder Bestrahlung für Lungenkrebs. Antworte mit true, wenn die Antwort auf Lungenkrebs hinweist, sonst mit false.",
+      "additional_info": "Lungenkrebs ist eine bösartige Erkrankung der Lunge. Frühe Symptome können unspezifisch sein und umfassen anhaltenden Husten, Bluthusten, Gewichtsverlust oder Atemnot. Rauchen ist der Hauptrisikofaktor für Lungenkrebs."
+    },
+    "sarkoidose": {
+      "name": "Sarkoidose",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "31541009",
+        "display": "Sarcoidosis"
+      },
+      "inquiry_prompt": "Hat ein Arzt bei Ihnen jemals Sarkoidose diagnostiziert?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine Sarkoidose-Diagnose hinweist. Achte auf Erwähnungen von Granulomen in der Lunge oder anderen Organen, sowie unspezifische Symptome wie Müdigkeit oder Gelenkschmerzen in Verbindung mit Atemproblemen. Antworte mit true, wenn die Antwort auf Sarkoidose hinweist, sonst mit false.",
+      "additional_info": "Sarkoidose ist eine entzündliche Erkrankung, die verschiedene Organe betreffen kann, am häufigsten die Lunge. Sie kann Symptome wie Husten, Atemnot, Müdigkeit und Gelenkschmerzen verursachen. Die Diagnose erfolgt oft durch Röntgen-Untersuchungen und Biopsien."
+    }
+  }
+}

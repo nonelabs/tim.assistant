@@ -1,0 +1,7 @@
+matrix-nio
+openai-whisper
+pydub
+requests
+torch
+tdqm
+aiofiles

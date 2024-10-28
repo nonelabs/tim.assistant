@@ -1,0 +1,65 @@
+{
+  "prompt": "Instruction: Der Patient soll angeben ob er an Beschwerden des Kopfes leidet. Gib dem Patienten zu Beginn eine Liste mit allen Beschwerden um die es geht. Frage ihn ob eine oder mehrere dieser Beschwerden bei ihm vorliegen. Stelle danach eine Frage nach der anderen bis alle relevanten Frage zu den folgenden Beschwerden geklärt sind. Danach beende das Gespräch.",
+  "query_group": {
+    "kopfschmerzen": {
+      "name": "Kopfschmerzen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "25064002",
+        "display": "Headache (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Kopfschmerzen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Kopfschmerzen hinweist. Antworten Sie mit true, wenn Kopfschmerzen erwähnt oder beschrieben werden, ansonsten mit false.",
+      "additional_info": "Kopfschmerzen können von einem dumpfen Druckgefühl bis hin zu stechenden oder pochenden Schmerzen im Kopfbereich reichen."
+    },
+    "migräne": {
+      "name": "Migräne",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "37796009",
+        "display": "Migraine (disorder)"
+      },
+      "inquiry_prompt": "Leiden Sie unter Migräne?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Migräne hindeutet. Berücksichtigen Sie typische Migränesymptome wie einseitige Kopfschmerzen, Licht- und Lärmempfindlichkeit oder Übelkeit. Antworten Sie mit true, wenn Migräne wahrscheinlich ist, ansonsten mit false.",
+      "additional_info": "Migräne äußert sich oft als starke, pulsierende Kopfschmerzen, meist einseitig, oft begleitet von Übelkeit, Licht- und Lärmempfindlichkeit."
+    },
+    "schwindel": {
+      "name": "Schwindel",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "404640003",
+        "display": "Dizziness (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Schwindelgefühle?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Schwindel hinweist. Achten Sie auf Beschreibungen wie Benommenheit, Gleichgewichtsstörungen oder das Gefühl, dass sich die Umgebung dreht. Antworten Sie mit true, wenn Schwindel beschrieben wird, ansonsten mit false.",
+      "additional_info": "Schwindel kann sich als Gefühl von Benommenheit, Gleichgewichtsstörungen oder als Eindruck, dass sich die Umgebung dreht, äußern."
+    },
+    "sehstörungen": {
+      "name": "Sehstörungen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "63102001",
+        "display": "Visual disturbance (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Sehstörungen bemerkt?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Sehstörungen hinweist. Berücksichtigen Sie Beschreibungen wie verschwommenes Sehen, Doppelbilder, Lichtblitze oder Sehausfälle. Antworten Sie mit true, wenn Sehstörungen erwähnt werden, ansonsten mit false.",
+      "additional_info": "Sehstörungen können sich als verschwommenes Sehen, Doppelbilder, Lichtblitze, Sehausfälle oder andere Veränderungen der visuellen Wahrnehmung äußern."
+    },
+    "tinnitus": {
+      "name": "Tinnitus",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "60862001",
+        "display": "Tinnitus (finding)"
+      },
+      "inquiry_prompt": "Nehmen Sie Ohrgeräusche wie Pfeifen, Rauschen oder Klingeln wahr?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Tinnitus hinweist. Achten Sie auf Beschreibungen von Geräuschen im Ohr wie Pfeifen, Rauschen oder Klingeln. Antworten Sie mit true, wenn Tinnitus-ähnliche Symptome beschrieben werden, ansonsten mit false.",
+      "additional_info": "Tinnitus äußert sich als Wahrnehmung von Geräuschen im Ohr oder Kopf, ohne dass eine äußere Schallquelle vorhanden ist. Dies kann als Pfeifen, Rauschen, Summen oder Klingeln wahrgenommen werden."
+    }
+  }
+}

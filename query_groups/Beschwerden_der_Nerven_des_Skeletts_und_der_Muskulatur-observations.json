@@ -1,0 +1,77 @@
+{
+  "prompt": "Instruction: Der Patient soll angeben ob er an Beschwerden der Nerven, des Skeletts und der Muskulator leidet. Gib dem Patienten zu Beginn eine Liste mit allen Beschwerden um die es geht. Frage ihn ob eine oder mehrere dieser Beschwerden vorliegen. Stelle danach eine Frage nach der anderen bis alle relevanten Frage zu den folgenden Beschwerden geklärt sind. Danach beende das Gespräch.",
+  "query_group": {
+    "gelenkschmerzen": {
+      "name": "Gelenkschmerzen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "57676002",
+        "display": "Joint pain (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Schmerzen in den Gelenken?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Gelenkschmerzen hinweist. Berücksichtigen Sie Beschreibungen von Schmerzen, Steifheit oder Schwellungen in den Gelenken. Antworten Sie mit true, wenn Gelenkschmerzen erwähnt werden, ansonsten mit false.",
+      "additional_info": "Gelenkschmerzen können sich als stechend, dumpf oder brennend äußern. Achten Sie darauf, welche Gelenke betroffen sind und ob die Schmerzen in Ruhe oder bei Bewegung auftreten."
+    },
+    "muskelschmerzen": {
+      "name": "Muskelschmerzen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "68962001",
+        "display": "Muscle pain (finding)"
+      },
+      "inquiry_prompt": "Leiden Sie unter Muskelschmerzen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Muskelschmerzen hinweist. Achten Sie auf Beschreibungen von Schmerzen, Verspannungen oder Krämpfen in den Muskeln. Antworten Sie mit true, wenn Muskelschmerzen beschrieben werden, ansonsten mit false.",
+      "additional_info": "Muskelschmerzen können sich als Ziehen, Brennen oder Krampfen äußern. Beachten Sie, welche Muskelgruppen betroffen sind und ob die Schmerzen durch Bewegung oder Ruhe beeinflusst werden."
+    },
+    "rückenschmerzen": {
+      "name": "Rückenschmerzen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "161891005",
+        "display": "Backache (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Rückenschmerzen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Rückenschmerzen hinweist. Berücksichtigen Sie Beschreibungen von Schmerzen im oberen, mittleren oder unteren Rückenbereich. Antworten Sie mit true, wenn Rückenschmerzen erwähnt werden, ansonsten mit false.",
+      "additional_info": "Rückenschmerzen können akut oder chronisch sein und sich als stechend, dumpf oder ausstrahlend äußern. Achten Sie auf die genaue Lokalisation und ob die Schmerzen in bestimmte Körperregionen ausstrahlen."
+    },
+    "taubheitsgefühl": {
+      "name": "Taubheitsgefühl",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "44077006",
+        "display": "Numbness (finding)"
+      },
+      "inquiry_prompt": "Spüren Sie ein Taubheitsgefühl in bestimmten Körperregionen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf ein Taubheitsgefühl hinweist. Achten Sie auf Beschreibungen von vermindertem Gefühl oder Empfindungslosigkeit in bestimmten Körperteilen. Antworten Sie mit true, wenn ein Taubheitsgefühl erwähnt wird, ansonsten mit false.",
+      "additional_info": "Ein Taubheitsgefühl äußert sich als verminderte oder fehlende Empfindung in bestimmten Körperregionen. Beachten Sie, welche Körperteile betroffen sind und ob das Gefühl dauerhaft oder vorübergehend ist."
+    },
+    "muskelschwäche": {
+      "name": "Muskelschwäche",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "26544005",
+        "display": "Muscle weakness (finding)"
+      },
+      "inquiry_prompt": "Bemerken Sie eine Schwäche in bestimmten Muskeln oder Muskelgruppen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Muskelschwäche hinweist. Berücksichtigen Sie Beschreibungen von verminderter Kraft oder Schwierigkeiten bei bestimmten Bewegungen. Antworten Sie mit true, wenn Muskelschwäche beschrieben wird, ansonsten mit false.",
+      "additional_info": "Muskelschwäche kann sich als verminderte Kraft, schnelle Ermüdung oder Schwierigkeiten bei alltäglichen Aktivitäten äußern. Achten Sie darauf, welche Muskeln oder Muskelgruppen betroffen sind."
+    },
+    "kribbeln": {
+      "name": "Kribbeln oder Parästhesien",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "418107008",
+        "display": "Sensory disturbance (finding)"
+      },
+      "inquiry_prompt": "Spüren Sie ein Kribbeln oder 'Ameisenlaufen' in bestimmten Körperregionen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Kribbeln oder Parästhesien hinweist. Achten Sie auf Beschreibungen von ungewöhnlichen Empfindungen wie Kribbeln, Prickeln oder 'Ameisenlaufen'. Antworten Sie mit true, wenn solche Empfindungen erwähnt werden, ansonsten mit false.",
+      "additional_info": "Kribbeln oder Parästhesien äußern sich als abnorme Empfindungen wie Prickeln, 'Ameisenlaufen' oder ein Gefühl von Nadelstichen. Beachten Sie, in welchen Körperregionen diese Empfindungen auftreten und ob sie dauerhaft oder vorübergehend sind."
+    }
+  }
+}

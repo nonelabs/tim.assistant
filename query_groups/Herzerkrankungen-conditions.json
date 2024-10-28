@@ -1,0 +1,125 @@
+{
+  "prompt": "Instruction: Der Patient soll angeben ob bei ihm eine chronische oder bestehende Herzerkrankung diagnostiziert wurde. Gib dem Patienten zu Beginn eine Liste mit allen Erkrankungen um die es geht. Frag ihn, ob eine oder mehrere dieser Erkrankungen bei ihm diagnostiziert wurden. Stelle danach eine Frage nach der anderen bis alle relevanten Frage zu den diagnosizierten Erkrankungen geklärt sind. Danach beende das Gespräch.",
+  "query_group": {
+    "bluthochdruck": {
+      "name": "Bluthochdruck",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "38341003",
+        "display": "Hypertensive disorder, systemic arterial"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals Bluthochdruck (Hypertonie) diagnostiziert?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Bluthochdruck-Diagnose hinweist. Achte auf Erwähnungen von erhöhten Blutdruckwerten, Einnahme von blutdrucksenkenden Medikamenten oder ärztliche Anweisungen zur Blutdruckkontrolle. Antworte mit true, wenn die Antwort auf Bluthochdruck hinweist, sonst mit false.",
+      "additional_info": "Bluthochdruck liegt vor, wenn der Blutdruck dauerhaft erhöht ist (über 140/90 mmHg). Er verursacht oft keine Symptome, kann aber zu schweren Komplikationen wie Herzinfarkt oder Schlaganfall führen. Regelmäßige Kontrollen und ggf. Medikamente sind wichtig."
+    },
+    "schlaganfall": {
+      "name": "Schlaganfall",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "230690007",
+        "display": "Cerebrovascular accident"
+      },
+      "inquiry_prompt": "Hatten Sie jemals einen Schlaganfall oder eine transitorische ischämische Attacke (TIA)?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf einen Schlaganfall oder eine TIA hindeutet. Berücksichtige Hinweise auf plötzliche Lähmungen, Sprachstörungen oder andere neurologische Ausfälle. Auch Begriffe wie 'Hirninfarkt' oder 'Gehirnblutung' sind relevant. Antworte mit true, wenn die Antwort auf einen Schlaganfall oder eine TIA hinweist, sonst mit false.",
+      "additional_info": "Ein Schlaganfall ist eine akute Durchblutungsstörung des Gehirns, die zu neurologischen Ausfällen führt. Symptome können Lähmungen, Sprachstörungen oder Sehstörungen sein. Eine TIA hat ähnliche Symptome, die aber innerhalb von 24 Stunden wieder verschwinden. Beide erfordern sofortige medizinische Hilfe."
+    },
+    "herzinfarkt": {
+      "name": "Herzinfarkt",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "22298006",
+        "display": "Myocardial infarction"
+      },
+      "inquiry_prompt": "Hatten Sie jemals einen Herzinfarkt?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf einen Herzinfarkt hindeutet. Achte auf klare Aussagen über einen Herzinfarkt oder Beschreibungen von starken Brustschmerzen mit Ausstrahlung in Arm oder Kiefer, verbunden mit einem Krankenhausaufenthalt. Antworte mit true, wenn die Antwort auf einen Herzinfarkt hinweist, sonst mit false.",
+      "additional_info": "Ein Herzinfarkt tritt auf, wenn ein Teil des Herzmuskels aufgrund eines Verschlusses der Herzkranzgefäße nicht mehr durchblutet wird. Typische Symptome sind starke Brustschmerzen, die in Arm, Hals oder Kiefer ausstrahlen können, sowie Atemnot und Schweißausbrüche. Sofortige medizinische Behandlung ist lebenswichtig."
+    },
+    "angeborener_herzfehler": {
+      "name": "Angeborener Herzfehler",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "13213009",
+        "display": "Congenital heart disease"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen ein angeborener Herzfehler diagnostiziert?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf einen angeborenen Herzfehler hindeutet. Berücksichtige Aussagen über Herzprobleme seit der Geburt oder frühen Kindheit, spezifische Diagnosen wie 'Loch im Herzen', oder Herzoperationen im Kindesalter. Antworte mit true, wenn die Antwort auf einen angeborenen Herzfehler hinweist, sonst mit false.",
+      "additional_info": "Angeborene Herzfehler sind Fehlbildungen des Herzens, die bereits bei der Geburt vorliegen. Sie können einfache Defekte wie ein 'Loch in der Herzscheidewand' oder komplexe Fehlbildungen umfassen. Manche erfordern sofortige Behandlung nach der Geburt, andere werden erst im Erwachsenenalter symptomatisch. Regelmäßige kardiologische Kontrollen sind wichtig."
+    },
+    "koronare_herzkrankheit": {
+      "name": "Koronare Herzkrankheit (KHK)",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "53741008",
+        "display": "Coronary arteriosclerosis"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals eine koronare Herzkrankheit (KHK) oder Herzkranzgefäßerkrankung diagnostiziert?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine koronare Herzkrankheit (KHK) hindeutet. Achte auf Erwähnungen von verengten Herzkranzgefäßen, Angina Pectoris, Bypass-Operationen oder Stents in den Herzkranzgefäßen. Antworte mit true, wenn die Antwort auf eine KHK hinweist, sonst mit false.",
+      "additional_info": "Die koronare Herzkrankheit (KHK) ist eine Verengung oder Verstopfung der Herzkranzgefäße, meist durch Arteriosklerose. Sie kann zu Brustschmerzen (Angina Pectoris) bei Belastung führen und erhöht das Risiko für einen Herzinfarkt. Behandlungsmöglichkeiten umfassen Medikamente, Stents oder Bypass-Operationen."
+    },
+    "herzrhythmusstoerungen": {
+      "name": "Herzrhythmusstörungen",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "698247007",
+        "display": "Cardiac arrhythmia"
+      },
+      "inquiry_prompt": "Wurden bei Ihnen jemals Herzrhythmusstörungen festgestellt?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf Herzrhythmusstörungen hindeutet. Achte auf Erwähnungen von unregelmäßigem Herzschlag, Herzklopfen, Vorhofflimmern, oder der Verwendung eines Herzschrittmachers. Antworte mit true, wenn die Antwort auf Herzrhythmusstörungen hinweist, sonst mit false.",
+      "additional_info": "Herzrhythmusstörungen sind Abweichungen vom normalen Herzschlag. Sie können sich als zu schneller, zu langsamer oder unregelmäßiger Herzschlag äußern. Häufige Formen sind Vorhofflimmern oder ventrikuläre Tachykardien. Symptome können Herzklopfen, Schwindel oder Ohnmacht sein. Die Behandlung reicht von Medikamenten bis zur Implantation eines Herzschrittmachers."
+    },
+    "herzinsuffizienz": {
+      "name": "Herzinsuffizienz",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "84114007",
+        "display": "Heart failure"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals eine Herzinsuffizienz (Herzschwäche) diagnostiziert?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine Herzinsuffizienz hindeutet. Berücksichtige Hinweise auf Atemnot bei Belastung oder im Liegen, geschwollene Beine oder Füße, oder den Begriff 'Herzschwäche'. Antworte mit true, wenn die Antwort auf eine Herzinsuffizienz hinweist, sonst mit false.",
+      "additional_info": "Bei einer Herzinsuffizienz kann das Herz den Körper nicht ausreichend mit Blut und Sauerstoff versorgen. Typische Symptome sind Atemnot (besonders bei Belastung oder im Liegen), Müdigkeit und geschwollene Beine oder Füße. Die Behandlung umfasst Medikamente, Lebensstiländerungen und in schweren Fällen möglicherweise eine Herztransplantation."
+    },
+    "herzklappenerkrankung": {
+      "name": "Herzklappenerkrankung",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "368009",
+        "display": "Heart valve disorder"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals eine Erkrankung der Herzklappen festgestellt?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Herzklappenerkrankung hindeutet. Achte auf Erwähnungen von Herzklappeninsuffizienz, Herzklappenstenose, künstlichen Herzklappen oder Herzklappenoperationen. Antworte mit true, wenn die Antwort auf eine Herzklappenerkrankung hinweist, sonst mit false.",
+      "additional_info": "Herzklappenerkrankungen betreffen die Klappen, die den Blutfluss im Herzen regulieren. Sie können angeboren sein oder sich im Laufe des Lebens entwickeln. Häufige Probleme sind undichte Klappen (Insuffizienz) oder verengte Klappen (Stenose). Symptome können Kurzatmigkeit, Müdigkeit oder Brustschmerzen sein. Die Behandlung reicht von Medikamenten bis zum Klappenersatz."
+    },
+    "periphere_arterielle_verschlusskrankheit": {
+      "name": "Periphere arterielle Verschlusskrankheit (pAVK)",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "399957001",
+        "display": "Peripheral arterial occlusive disease"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals eine periphere arterielle Verschlusskrankheit (pAVK) oder 'Schaufensterkrankheit' diagnostiziert?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine pAVK hindeutet. Berücksichtige Hinweise auf Schmerzen in den Beinen beim Gehen, die sich bei Ruhe bessern, oder den Begriff 'Schaufensterkrankheit'. Antworte mit true, wenn die Antwort auf eine pAVK hinweist, sonst mit false.",
+      "additional_info": "Die periphere arterielle Verschlusskrankheit (pAVK) ist eine Verengung der Arterien, meist in den Beinen. Typisches Symptom sind Schmerzen in den Beinen beim Gehen, die sich in Ruhe bessern (daher der Name 'Schaufensterkrankheit'). In fortgeschrittenen Stadien können auch Ruheschmerzen oder schlecht heilende Wunden auftreten. Die Behandlung umfasst Lebensstiländerungen, Medikamente und in schweren Fällen operative Eingriffe."
+    },
+    "aortenaneurysma": {
+      "name": "Aortenaneurysma",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "75930006",
+        "display": "Aneurysm of aorta"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals ein Aortenaneurysma festgestellt?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf ein Aortenaneurysma hindeutet. Achte auf Erwähnungen einer Erweiterung oder Aussackung der Hauptschlagader (Aorta) oder einer Operation an der Aorta. Antworte mit true, wenn die Antwort auf ein Aortenaneurysma hinweist, sonst mit false.",
+      "additional_info": "Ein Aortenaneurysma ist eine Erweiterung der Hauptschlagader (Aorta). Es verursacht meist keine Symptome, kann aber bei einem Riss lebensgefährlich sein. Risikofaktoren sind Bluthochdruck, Rauchen und familiäre Vorbelastung. Ab einer bestimmten Größe wird eine Operation empfohlen, um einen Riss zu verhindern. Regelmäßige Kontrollen bei bekanntem Aneurysma sind wichtig."
+    }
+  }
+}

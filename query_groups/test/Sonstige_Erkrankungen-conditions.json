@@ -1,0 +1,101 @@
+{
+  "prompt":"Instruction: Der Patient soll angeben ob bei ihm eine sonstige chronische oder bestehende Erkrankung diagnostiziert wurde. Gib dem Patienten zu Beginn eine Liste mit allen Erkrankungen um die es geht. Frage ihn ob eine oder mehrere davon bei ihm diagnostiziert wurden. Stelle danach eine Frage nach der anderen bis alle relevanten Frage zu den diagnosizierten Erkrankungen geklärt sind. Danach beende das Gespräch.",
+  "query_group":{
+  "gruener_star": {
+    "name": "Grüner Star (Glaukom)",
+    "type": "Condition",
+    "code": {
+      "system": "http://snomed.info/sct",
+      "code": "23986001",
+      "display": "Glaucoma"
+    },
+    "inquiry_prompt": "Wurde bei Ihnen jemals ein Grüner Star (Glaukom) diagnostiziert?",
+    "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Glaukom-Diagnose hindeutet. Achte auf Erwähnungen von erhöhtem Augeninnendruck, Gesichtsfeldausfällen oder der Verwendung von Augentropfen zur Drucksenkung. Antworte mit true, wenn die Antwort auf Glaukom hinweist, sonst mit false.",
+    "additional_info": "Der Grüne Star (Glaukom) ist eine Gruppe von Augenerkrankungen, die den Sehnerv schädigen, oft durch erhöhten Augeninnendruck. Frühe Stadien verursachen meist keine Symptome, fortgeschrittene Stadien können zu Gesichtsfeldausfällen und Sehverlust führen. Regelmäßige augenärztliche Kontrollen sind wichtig für die Früherkennung. Die Behandlung umfasst meist drucksenkende Augentropfen, manchmal auch Laser- oder chirurgische Eingriffe."
+  },
+  "rheuma": {
+    "name": "Rheuma",
+    "type": "Condition",
+    "code": {
+      "system": "http://snomed.info/sct",
+      "code": "69896004",
+      "display": "Rheumatoid arthritis"
+    },
+    "inquiry_prompt": "Wurde bei Ihnen jemals eine rheumatische Erkrankung diagnostiziert?",
+    "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine rheumatische Erkrankung hindeutet. Berücksichtige Hinweise auf chronische Gelenkschmerzen, Gelenkschwellungen, Morgensteifigkeit oder die Einnahme von Antirheumatika. Antworte mit true, wenn die Antwort auf Rheuma hinweist, sonst mit false.",
+    "additional_info": "Rheuma ist ein Oberbegriff für verschiedene entzündliche Erkrankungen des Bewegungsapparates. Die häufigste Form ist die rheumatoide Arthritis, eine Autoimmunerkrankung, die zu Gelenkentzündungen führt. Typische Symptome sind Schmerzen, Schwellungen und Steifheit der Gelenke, besonders am Morgen. Die Behandlung zielt darauf ab, Entzündungen zu reduzieren und Gelenkschäden zu verhindern."
+  },
+  "chronische_hepatitis": {
+    "name": "Chronische Hepatitis",
+    "type": "Condition",
+    "code": {
+      "system": "http://snomed.info/sct",
+      "code": "10295004",
+      "display": "Chronic viral hepatitis"
+    },
+    "inquiry_prompt": "Wurde bei Ihnen jemals eine chronische Hepatitis diagnostiziert?",
+    "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine chronische Hepatitis-Diagnose hindeutet. Achte auf Erwähnungen von Hepatitis B oder C, langanhaltender Leberentzündung oder regelmäßigen Leberwerttests. Antworte mit true, wenn die Antwort auf chronische Hepatitis hinweist, sonst mit false.",
+    "additional_info": "Chronische Hepatitis ist eine lang andauernde Entzündung der Leber, meist verursacht durch Viren (häufig Hepatitis B oder C) oder Autoimmunreaktionen. Viele Betroffene haben zunächst keine Symptome, langfristig kann es aber zu Müdigkeit, Gewichtsverlust und Leberversagen kommen. Die Behandlung hängt von der Ursache ab und kann antivirale Medikamente oder Immunsuppressiva umfassen."
+  },
+  "suchterkrankung": {
+    "name": "Medikamenten-/Drogenabhängigkeit",
+    "type": "Condition",
+    "code": {
+      "system": "http://snomed.info/sct",
+      "code": "66214007",
+      "display": "Substance abuse"
+    },
+    "inquiry_prompt": "Hatten Sie jemals Probleme mit Medikamenten- oder Drogenabhängigkeit?",
+    "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine Medikamenten- oder Drogenabhängigkeit hindeutet. Berücksichtige Hinweise auf Suchtverhalten, Entzugserscheinungen, erfolglose Versuche, den Konsum zu reduzieren, oder die Teilnahme an Suchtbehandlungsprogrammen. Antworte mit true, wenn die Antwort auf eine Suchterkrankung hinweist, sonst mit false.",
+    "additional_info": "Medikamenten- oder Drogenabhängigkeit ist eine komplexe Erkrankung, die sich durch zwanghaften Substanzkonsum trotz schädlicher Folgen auszeichnet. Sie kann sowohl illegale Drogen als auch verschreibungspflichtige Medikamente betreffen. Anzeichen können Kontrollverlust, Entzugserscheinungen und Vernachlässigung anderer Aktivitäten sein. Die Behandlung umfasst oft eine Kombination aus Entgiftung, Verhaltenstherapie und Unterstützungsgruppen."
+  },
+  "krebserkrankung": {
+    "name": "Krebserkrankung",
+    "type": "Condition",
+    "code": {
+      "system": "http://snomed.info/sct",
+      "code": "363346000",
+      "display": "Malignant neoplastic disease"
+    },
+    "inquiry_prompt": "Wurde bei Ihnen jemals eine Krebserkrankung diagnostiziert?",
+    "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Krebsdiagnose hindeutet. Achte auf klare Aussagen über Krebs, bösartige Tumore oder Behandlungen wie Chemotherapie, Bestrahlung oder Krebsoperationen. Antworte mit true, wenn die Antwort auf eine Krebserkrankung hinweist, sonst mit false.",
+    "additional_info": "Krebs ist eine Gruppe von Erkrankungen, bei denen sich Zellen unkontrolliert teilen und gesundes Gewebe schädigen können. Symptome variieren je nach Krebsart und -stadium, können aber Gewichtsverlust, Müdigkeit oder ungewöhnliche Schwellungen umfassen. Die Behandlung hängt von der Art und dem Stadium des Krebses ab und kann Operation, Strahlentherapie, Chemotherapie oder Immuntherapie umfassen."
+  },
+  "lebererkrankung": {
+    "name": "Lebererkrankung",
+    "type": "Condition",
+    "code": {
+      "system": "http://snomed.info/sct",
+      "code": "235856003",
+      "display": "Disorder of liver"
+    },
+    "inquiry_prompt": "Wurde bei Ihnen jemals eine Lebererkrankung diagnostiziert?",
+    "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine Lebererkrankung hindeutet. Berücksichtige Hinweise auf Leberzirrhose, Fettleber, erhöhte Leberwerte oder Gelbsucht. Antworte mit true, wenn die Antwort auf eine Lebererkrankung hinweist, sonst mit false.",
+    "additional_info": "Lebererkrankungen umfassen verschiedene Zustände, die die Leberfunktion beeinträchtigen. Dazu gehören Fettleber, Hepatitis, Zirrhose und andere. Symptome können Müdigkeit, Gelbfärbung der Haut oder Augen (Gelbsucht), Bauchschmerzen oder geschwollener Bauch sein. Die Behandlung hängt von der spezifischen Erkrankung ab und kann Lebensstiländerungen, Medikamente oder in schweren Fällen eine Transplantation umfassen."
+  },
+  "nierenerkrankung": {
+    "name": "Nierenerkrankung",
+    "type": "Condition",
+    "code": {
+      "system": "http://snomed.info/sct",
+      "code": "90708001",
+      "display": "Kidney disease"
+    },
+    "inquiry_prompt": "Wurde bei Ihnen jemals eine Nierenerkrankung diagnostiziert?",
+    "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Nierenerkrankung hindeutet. Achte auf Erwähnungen von eingeschränkter Nierenfunktion, Dialyse, Nierensteinen oder wiederholten Harnwegsinfektionen. Antworte mit true, wenn die Antwort auf eine Nierenerkrankung hinweist, sonst mit false.",
+    "additional_info": "Nierenerkrankungen können akut oder chronisch sein und die Fähigkeit der Nieren beeinträchtigen, Abfallprodukte und überschüssige Flüssigkeit aus dem Blut zu filtern. Symptome können Müdigkeit, Schwellungen in den Beinen, häufiges Wasserlassen oder Bluthochdruck sein. Die Behandlung reicht von Medikamenten und Diätanpassungen bis hin zur Dialyse oder Nierentransplantation bei schweren Fällen."
+  },
+  "andere": {
+    "name": "Andere Erkrankung",
+    "type": "Condition",
+    "code": {
+      "system": "http://snomed.info/sct",
+      "code": "64572001",
+      "display": "Disease"
+    },
+    "inquiry_prompt": "Gibt es andere wichtige Erkrankungen oder gesundheitliche Probleme, die wir noch nicht besprochen haben?",
+    "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine bedeutende Erkrankung oder ein gesundheitliches Problem hindeutet, das nicht in den vorherigen Kategorien erfasst wurde. Berücksichtige alle Hinweise auf chronische oder schwerwiegende Gesundheitszustände. Antworte mit true, wenn die Antwort auf eine andere relevante Erkrankung hinweist, sonst mit false.",
+    "additional_info": "Es gibt viele Erkrankungen, die nicht in die vorherigen Kategorien fallen, aber dennoch wichtig für Ihre Gesundheitsversorgung sein können. Dazu können seltene Erkrankungen, genetische Störungen, Autoimmunerkrankungen oder andere chronische Gesundheitszustände gehören. Es ist wichtig, dass Sie Ihren Arzt über alle gesundheitlichen Probleme informieren, auch wenn sie Ihnen möglicherweise nicht schwerwiegend erscheinen."
+  }
+}
+}

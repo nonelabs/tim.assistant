@@ -1,0 +1,77 @@
+{
+  "prompt": "Instruction: Der Patient soll angeben ob er an psychischen Beschwerden leidet. Gib dem Patienten zu Beginn eine Liste mit allen Beschwerden um die es geht. Frage ob eine oder mehrere Beschwerden vorliegen. Stelle danach eine Frage nach der anderen bis alle relevanten Frage zu den folgenden Beschwerden geklärt sind. Danach beende das Gespräch.",
+  "query_group": {
+    "schlafstörungen": {
+      "name": "Schlafstörungen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "26279004",
+        "display": "Sleep disorder (disorder)"
+      },
+      "inquiry_prompt": "Haben Sie Probleme mit dem Schlafen, wie Ein- oder Durchschlafstörungen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Schlafstörungen hinweist. Achten Sie auf Beschreibungen von Schwierigkeiten beim Einschlafen, Durchschlafen oder frühem Erwachen. Antworten Sie mit true, wenn Schlafstörungen erwähnt werden, ansonsten mit false.",
+      "additional_info": "Schlafstörungen können sich als Probleme beim Einschlafen, Durchschlafen oder als zu frühes Erwachen äußern. Beachten Sie die Häufigkeit, Dauer und Auswirkungen auf die Tagesbefindlichkeit."
+    },
+    "konzentrationsschwäche": {
+      "name": "Konzentrationsschwäche",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "60032008",
+        "display": "Unable to concentrate (finding)"
+      },
+      "inquiry_prompt": "Fällt es Ihnen schwer, sich zu konzentrieren oder Aufgaben zu Ende zu bringen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Konzentrationsschwäche hinweist. Berücksichtigen Sie Beschreibungen von Schwierigkeiten, sich zu fokussieren, Aufgaben abzuschließen oder Gedanken zu ordnen. Antworten Sie mit true, wenn Konzentrationsschwäche erwähnt wird, ansonsten mit false.",
+      "additional_info": "Konzentrationsschwäche kann sich als Schwierigkeit äußern, sich auf Aufgaben zu fokussieren, Gesprächen zu folgen oder Informationen zu behalten. Beachten Sie die Auswirkungen auf Alltag, Arbeit oder Studium."
+    },
+    "depressive_verstimmung": {
+      "name": "Depressive Verstimmung",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "35489007",
+        "display": "Depressed mood (finding)"
+      },
+      "inquiry_prompt": "Fühlen Sie sich in letzter Zeit häufig niedergeschlagen, traurig oder deprimiert?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf eine depressive Verstimmung hinweist. Achten Sie auf Beschreibungen von Niedergeschlagenheit, Traurigkeit, Hoffnungslosigkeit oder Interessenverlust. Antworten Sie mit true, wenn eine depressive Verstimmung beschrieben wird, ansonsten mit false.",
+      "additional_info": "Depressive Verstimmung äußert sich oft als anhaltende Traurigkeit, Niedergeschlagenheit oder Verlust von Interesse und Freude. Beachten Sie die Dauer der Symptome und deren Auswirkungen auf den Alltag."
+    },
+    "antriebslosigkeit": {
+      "name": "Antriebslosigkeit",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "248033005",
+        "display": "Lack of motivation (finding)"
+      },
+      "inquiry_prompt": "Fühlen Sie sich antriebslos oder haben Sie Schwierigkeiten, Dinge anzugehen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Antriebslosigkeit hinweist. Achten Sie auf Beschreibungen von fehlendem Antrieb, Motivationslosigkeit oder Schwierigkeiten, Aktivitäten zu beginnen. Antworten Sie mit true, wenn Antriebslosigkeit erwähnt wird, ansonsten mit false.",
+      "additional_info": "Antriebslosigkeit äußert sich als Mangel an Motivation oder Energie, Dinge anzugehen oder zu erledigen. Beachten Sie die Auswirkungen auf tägliche Aktivitäten, Arbeit oder soziale Interaktionen."
+    },
+    "erschöpfung": {
+      "name": "Erschöpfung",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "84229001",
+        "display": "Fatigue (finding)"
+      },
+      "inquiry_prompt": "Fühlen Sie sich oft erschöpft oder ermüdet, auch ohne besondere Anstrengung?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Erschöpfung oder Ermüdung hinweist. Berücksichtigen Sie Beschreibungen von anhaltender Müdigkeit, Energiemangel oder dem Gefühl der Erschöpfung. Antworten Sie mit true, wenn Erschöpfung erwähnt wird, ansonsten mit false.",
+      "additional_info": "Erschöpfung äußert sich als anhaltende Müdigkeit oder Energiemangel, der durch Ruhe oder Schlaf nicht vollständig behoben wird. Beachten Sie die Dauer der Symptome, deren Intensität und Auswirkungen auf den Alltag."
+    },
+    "seelische_nervöse_beschwerden": {
+      "name": "Seelische/nervöse Beschwerden",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "48694002",
+        "display": "Anxiety (finding)"
+      },
+      "inquiry_prompt": "Leiden Sie unter seelischen oder nervösen Beschwerden wie Ängsten, Nervosität oder innerer Unruhe?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf seelische oder nervöse Beschwerden hinweist. Berücksichtigen Sie Beschreibungen von Ängsten, Nervosität, innerer Unruhe, Reizbarkeit oder Stimmungsschwankungen. Antworten Sie mit true, wenn seelische oder nervöse Beschwerden erwähnt werden, ansonsten mit false.",
+      "additional_info": "Seelische oder nervöse Beschwerden können sich in vielfältiger Weise äußern, z.B. als Ängste, Nervosität, innere Unruhe, Reizbarkeit oder Stimmungsschwankungen. Beachten Sie die Art der Beschwerden, deren Intensität, Dauer und Auswirkungen auf den Alltag und das soziale Leben."
+    }
+  }
+}

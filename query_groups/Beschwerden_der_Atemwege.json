@@ -1,0 +1,77 @@
+{
+  "prompt": "Instruction: Der Patient soll angeben ob er an Beschwerden der Atemwege leidet. Gib dem Patienten zu Beginn eine Liste mit allen Beschwerden um die es geht. Frage ihn ob eine oder mehrere dieser Beschwerden vorliegen. Stelle danach eine Frage nach der anderen bis alle relevanten Frage zu den folgenden Beschwerden geklärt sind. Danach beende das Gespräch.",
+  "query_group": {
+    "husten": {
+      "name": "Husten",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "49727002",
+        "display": "Cough (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Husten?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Husten hinweist. Berücksichtigen Sie Beschreibungen von trockenem oder produktivem Husten. Antworten Sie mit true, wenn Husten erwähnt wird, ansonsten mit false.",
+      "additional_info": "Husten kann trocken (ohne Auswurf) oder produktiv (mit Auswurf) sein. Achten Sie auch auf die Dauer und Intensität des Hustens."
+    },
+    "atemnot": {
+      "name": "Atemnot",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "267036007",
+        "display": "Dyspnea (finding)"
+      },
+      "inquiry_prompt": "Leiden Sie unter Atemnot oder Kurzatmigkeit?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Atemnot oder Kurzatmigkeit hinweist. Achten Sie auf Beschreibungen von Schwierigkeiten beim Atmen, insbesondere bei Anstrengung. Antworten Sie mit true, wenn Atemnot beschrieben wird, ansonsten mit false.",
+      "additional_info": "Atemnot kann sich als Gefühl von Luftmangel, erschwertem Atmen oder dem Bedürfnis, schneller oder tiefer zu atmen, äußern. Es kann in Ruhe oder bei Belastung auftreten."
+    },
+    "giemen": {
+      "name": "Giemen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "56018004",
+        "display": "Wheezing (finding)"
+      },
+      "inquiry_prompt": "Hören Sie beim Atmen ein pfeifendes oder zischendes Geräusch (Giemen)?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Giemen (pfeifende oder zischende Atemgeräusche) hinweist. Antworten Sie mit true, wenn solche Geräusche beschrieben werden, ansonsten mit false.",
+      "additional_info": "Giemen ist ein hoher, pfeifender oder zischender Ton beim Atmen, der oft mit einer Verengung der Atemwege zusammenhängt."
+    },
+    "brustschmerzen": {
+      "name": "Brustschmerzen",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "29857009",
+        "display": "Chest pain (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Schmerzen in der Brust, insbesondere beim Atmen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Brustschmerzen hinweist, insbesondere im Zusammenhang mit dem Atmen. Antworten Sie mit true, wenn Brustschmerzen erwähnt werden, ansonsten mit false.",
+      "additional_info": "Brustschmerzen können sich als Druckgefühl, Stechen oder Brennen äußern. Achten Sie besonders darauf, ob die Schmerzen beim Atmen auftreten oder sich verstärken."
+    },
+    "auswurf": {
+      "name": "Auswurf",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "248595008",
+        "display": "Sputum finding (finding)"
+      },
+      "inquiry_prompt": "Haben Sie Auswurf beim Husten?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf Auswurf beim Husten hinweist. Achten Sie auf Beschreibungen von Schleim oder anderen Sekreten. Antworten Sie mit true, wenn Auswurf erwähnt wird, ansonsten mit false.",
+      "additional_info": "Auswurf ist das Sekret, das beim Husten aus den Atemwegen kommt. Achten Sie auf die Beschreibung der Farbe (klar, weiß, gelb, grün) und Konsistenz des Auswurfs."
+    },
+    "häufige_infekte": {
+      "name": "Häufige Infekte",
+      "type": "Observation",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "55342001",
+        "display": "Recurrent infection (disorder)"
+      },
+      "inquiry_prompt": "Leiden Sie häufiger als sonst unter Erkältungen oder anderen Infektionen?",
+      "match_prompt": "Überprüfen Sie, ob die Antwort des Patienten auf häufige oder wiederkehrende Infektionen hinweist. Berücksichtigen Sie Beschreibungen von oft auftretenden Erkältungen, Grippe oder anderen Infektionskrankheiten. Antworten Sie mit true, wenn häufige Infekte erwähnt werden, ansonsten mit false.",
+      "additional_info": "Häufige Infekte können auf ein geschwächtes Immunsystem hindeuten. Beachten Sie die Art der Infektionen, deren Häufigkeit und Dauer sowie mögliche Auslöser oder Risikofaktoren."
+    }
+  }
+}

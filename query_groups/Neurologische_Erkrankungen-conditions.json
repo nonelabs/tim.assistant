@@ -1,0 +1,113 @@
+{
+  "prompt": "Instruction: Der Patient soll angeben ob bei ihm eine chronische oder bestehende neurologische Erkrankung diagnostiziert wurde. Gib dem Patienten zu Beginn eine Liste mit allen Erkrankungen um die es geht. Frage ihn ob eine oder mehrere dieser Erkrankungen bei ihm diagnostiziert wurden. Stelle danach eine Frage nach der anderen bis alle relevanten Frage zu den diagnostizierten Erkrankungen geklärt sind. Danach beende das Gespräch.",
+  "query_group": {
+    "epilepsie": {
+      "name": "Epilepsie",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "84757009",
+        "display": "Epilepsy"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals Epilepsie diagnostiziert?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Epilepsie-Diagnose hinweist. Achte auf Erwähnungen von epileptischen Anfällen, Krampfanfällen oder antiepileptischen Medikamenten. Antworte mit true, wenn die Antwort auf Epilepsie hinweist, sonst mit false.",
+      "additional_info": "Epilepsie ist eine neurologische Erkrankung, die durch wiederkehrende, unprovozierte Anfälle gekennzeichnet ist. Diese Anfälle können von kurzen Bewusstseinsstörungen bis hin zu starken Krämpfen reichen. Die Behandlung erfolgt meist mit Medikamenten, in einigen Fällen auch chirurgisch."
+    },
+    "multiple_sklerose": {
+      "name": "Multiple Sklerose (MS)",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "24700007",
+        "display": "Multiple sclerosis"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals Multiple Sklerose (MS) diagnostiziert?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine MS-Diagnose hindeutet. Berücksichtige Hinweise auf Sehstörungen, Taubheitsgefühle, Lähmungserscheinungen oder den Begriff 'Schub'. Antworte mit true, wenn die Antwort auf Multiple Sklerose hinweist, sonst mit false.",
+      "additional_info": "Multiple Sklerose ist eine chronisch-entzündliche Erkrankung des zentralen Nervensystems. Symptome können Sehstörungen, Taubheitsgefühle, Lähmungserscheinungen oder Koordinationsstörungen umfassen. Der Verlauf ist oft schubförmig. Die Behandlung zielt darauf ab, Schübe zu reduzieren und Symptome zu lindern."
+    },
+    "parkinson": {
+      "name": "Parkinson-Krankheit",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "49049000",
+        "display": "Parkinson's disease"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals die Parkinson-Krankheit diagnostiziert?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Parkinson-Diagnose hindeutet. Achte auf Erwähnungen von Zittern (Tremor), Steifheit der Muskeln, verlangsamten Bewegungen oder Gleichgewichtsstörungen. Antworte mit true, wenn die Antwort auf Parkinson hinweist, sonst mit false.",
+      "additional_info": "Die Parkinson-Krankheit ist eine fortschreitende neurologische Erkrankung, die die Bewegung beeinträchtigt. Hauptsymptome sind Zittern, Muskelsteifheit, verlangsamte Bewegungen und Gleichgewichtsstörungen. Die Behandlung umfasst Medikamente und in einigen Fällen chirurgische Eingriffe, um die Symptome zu kontrollieren."
+    },
+    "demenz": {
+      "name": "Demenz",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "52448006",
+        "display": "Dementia"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen oder einem nahen Angehörigen jemals eine Form von Demenz diagnostiziert?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine Demenz-Diagnose hindeutet. Berücksichtige Hinweise auf fortschreitende Gedächtnisprobleme, Schwierigkeiten bei alltäglichen Aufgaben oder Veränderungen der Persönlichkeit. Beachte auch Begriffe wie 'Alzheimer'. Antworte mit true, wenn die Antwort auf Demenz hinweist, sonst mit false.",
+      "additional_info": "Demenz ist ein Oberbegriff für verschiedene Erkrankungen, die zu einer fortschreitenden Verschlechterung der geistigen Fähigkeiten führen. Die häufigste Form ist die Alzheimer-Krankheit. Symptome umfassen Gedächtnisverlust, Schwierigkeiten bei der Problemlösung und Veränderungen der Persönlichkeit. Die Behandlung zielt darauf ab, Symptome zu lindern und die Lebensqualität zu verbessern."
+    },
+    "depression": {
+      "name": "Depression",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "35489007",
+        "display": "Depressive disorder"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals eine Depression diagnostiziert oder behandelt?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Depression hindeutet. Achte auf Erwähnungen von anhaltender Niedergeschlagenheit, Interessenverlust, Antriebslosigkeit oder der Einnahme von Antidepressiva. Antworte mit true, wenn die Antwort auf eine Depression hinweist, sonst mit false.",
+      "additional_info": "Depression ist eine psychische Erkrankung, die durch anhaltende Niedergeschlagenheit, Interessenverlust und Antriebslosigkeit gekennzeichnet ist. Weitere Symptome können Schlafstörungen, Appetitveränderungen und Konzentrationsschwierigkeiten sein. Die Behandlung umfasst oft eine Kombination aus Psychotherapie und Medikamenten."
+    },
+    "schizophrenie": {
+      "name": "Schizophrenie",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "58214004",
+        "display": "Schizophrenia"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals Schizophrenie diagnostiziert?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine Schizophrenie-Diagnose hindeutet. Berücksichtige Hinweise auf Halluzinationen, Wahnvorstellungen, desorganisiertes Denken oder stark eingeschränktes Gefühlsleben. Antworte mit true, wenn die Antwort auf Schizophrenie hinweist, sonst mit false.",
+      "additional_info": "Schizophrenie ist eine schwere psychische Erkrankung, die das Denken, Fühlen und Verhalten beeinträchtigt. Symptome können Halluzinationen, Wahnvorstellungen, desorganisiertes Denken und eingeschränktes Gefühlsleben umfassen. Die Behandlung erfolgt meist mit einer Kombination aus Medikamenten und Psychotherapie."
+    },
+    "migraine": {
+      "name": "Migräne",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "37796009",
+        "display": "Migraine"
+      },
+      "inquiry_prompt": "Leiden Sie an Migräne oder wurden Sie jemals wegen Migräne behandelt?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf Migräne hindeutet. Achte auf Beschreibungen von wiederkehrenden, starken Kopfschmerzen, oft begleitet von Übelkeit, Licht- oder Geräuschempfindlichkeit. Berücksichtige auch Erwähnungen von Aura-Symptomen. Antworte mit true, wenn die Antwort auf Migräne hinweist, sonst mit false.",
+      "additional_info": "Migräne ist eine neurologische Erkrankung, die durch wiederkehrende, oft einseitige Kopfschmerzen gekennzeichnet ist. Die Schmerzen sind oft pulsierend und werden durch körperliche Aktivität verstärkt. Begleitsymptome können Übelkeit, Erbrechen sowie Licht- und Geräuschempfindlichkeit sein. Manche Menschen erleben vor dem Kopfschmerz eine 'Aura' mit visuellen oder sensorischen Störungen."
+    },
+    "alzheimer": {
+      "name": "Alzheimer-Krankheit",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "26929004",
+        "display": "Alzheimer's disease"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen oder einem nahen Angehörigen jemals die Alzheimer-Krankheit diagnostiziert?",
+      "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine Alzheimer-Diagnose hindeutet. Berücksichtige Hinweise auf fortschreitenden Gedächtnisverlust, Schwierigkeiten bei der Wortfindung, Orientierungsprobleme oder Verhaltensänderungen. Antworte mit true, wenn die Antwort auf Alzheimer hinweist, sonst mit false.",
+      "additional_info": "Die Alzheimer-Krankheit ist die häufigste Form der Demenz. Sie ist eine fortschreitende Erkrankung, die zu einem Verlust von Gedächtnis, Denkvermögen und der Fähigkeit, alltägliche Aufgaben auszuführen, führt. Frühe Symptome können leichte Vergesslichkeit und Wortfindungsstörungen sein, die sich im Laufe der Zeit verschlimmern. Die Behandlung zielt darauf ab, Symptome zu lindern und den Krankheitsverlauf zu verlangsamen."
+    },
+    "bipolare_stoerung": {
+      "name": "Bipolare Störung",
+      "type": "Condition",
+      "code": {
+        "system": "http://snomed.info/sct",
+        "code": "13746004",
+        "display": "Bipolar disorder"
+      },
+      "inquiry_prompt": "Wurde bei Ihnen jemals eine bipolare Störung diagnostiziert?",
+      "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine bipolare Störung hindeutet. Achte auf Beschreibungen von Phasen extremer Hochstimmung (Manie) und Phasen tiefer Niedergeschlagenheit (Depression). Berücksichtige auch Erwähnungen von starken Stimmungsschwankungen oder die Einnahme von Stimmungsstabilisatoren. Antworte mit true, wenn die Antwort auf eine bipolare Störung hinweist, sonst mit false.",
+      "additional_info": "Die bipolare Störung ist eine psychische Erkrankung, die durch extreme Schwankungen der Stimmung, Energie und Aktivität gekennzeichnet ist. Betroffene erleben Phasen der Manie oder Hypomanie (erhöhte Stimmung und Energie) und Phasen der Depression. Die Behandlung umfasst in der Regel Stimmungsstabilisatoren, Psychotherapie und Lebensstilanpassungen."
+    }
+  }
+}
