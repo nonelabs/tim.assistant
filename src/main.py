@@ -50,7 +50,7 @@ def check_medical_history():
                     bundle = v.generate_fhir_bundle()
                     bundles[k] = bundle
                     with open(k+".json", "w") as file:
-                        json.dump(bundlet,file)
+                         json.dump(bundle,file)
                     user_completed = k
                     break
             if user_completed:
