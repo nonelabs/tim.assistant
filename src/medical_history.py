@@ -14,7 +14,7 @@ from llama_cpp import Llama, LlamaGrammar
 from query import QueryResult, QueryGroup, load_query_group_from_json
 
 model = Llama(
-    model_path="models/gemma-2-27b-it-Q3_K_L.gguf",
+    model_path="models/gemma-2-27b-it-Q5_K_M.gguf",
     n_gpu_layers=-1,
     seed=1337,
     n_ctx=4092,
@@ -23,28 +23,29 @@ model = Llama(
 model_lock = threading.Lock()
 
 class MedicalHistory:
-    def __init__(self, subject_reference, query_group_folder):
+    def __init__(self, subject_reference, query_groups_folder):
         self.subject_reference = subject_reference
         self.query_groups = []
         self.current_query_group = None
         self.query_results = []
         self.query_group_iter = None
         self.context = []
-        self.questions_for_medical_staff = []
+        self.questions_for_medical_staff = ""
         self.additional_questions = []
         self.fhir_export_finished = False
         self.status = "pending"
-        self.load_query_groups(query_group_folder)
+        self.misc = []
+        self.report = "Patientenbericht:\n"
+        self.load_query_groups(query_groups_folder)
 
-    def load_query_groups(self):
-        queries_folder = "query_groups_small/"
-        for json_file in os.listdir(queries_folder):
+    def load_query_groups(self, query_groups_folder):
+        for json_file in os.listdir(query_groups_folder):
             if json_file.endswith("-observations.json"):
-                file_path = os.path.join(queries_folder, json_file)
+                file_path = os.path.join(query_groups_folder, json_file)
                 self.query_groups.append(load_query_group_from_json(file_path))
-        for json_file in os.listdir(queries_folder):
+        for json_file in os.listdir(query_groups_folder):
             if json_file.endswith("-conditions.json"):
-                file_path = os.path.join(queries_folder, json_file)
+                file_path = os.path.join(query_groups_folder, json_file)
                 self.query_groups.append(load_query_group_from_json(file_path))
 
     def add_query_result(self, query_result):
@@ -62,29 +63,31 @@ class MedicalHistory:
             return None
         last_message = self.context[-2]["content"]
         res = self.internal_instruction(
-            "The last message of the user was: "
+            'Die letzte Nachricht des Nutzers lautet:"'
             + last_message
-            + " Is it an answer to a question, a question or an instruction ?",
-            ["answer", "question", "instruction"],
+            + '" Klassifiziere: Ist die Nachricht eine Antwort auf eine gestellte Frage (Antwort), '
+                                'ist die Nachricht eine Frage (Frage) oder ist die Nachricht eine Anweisung (Anweisung)?',
+            ["Antwort", "Frage", "Anweisung"]
         )
-        if res == "answer":
+        if res == "Antwort":
             return self.process_answer()
-        if res == "question":
+        if res == "Frage":
             return self.process_question()
-        if res == "instruction":
+        if res == "Anweisung":
             instruction = self.context[-2]['content']
             del self.context[-2:]
             return self.internal_instruction(
-                "Antworten sie auf die Nachricht des Patienten: "
+                "Antworten sie auf die Nachricht des Patienten: \""
                 + instruction
-                + ". Erklären Sie freundlich, dass er sich erstmal auf medizinische Befragung fokussieren soll " \
-                  "und Sie sich gerne nachher noch Zeit für andere Fragen oder Anregungen nehmen werden"
+                + "\". Erklären Sie freundlich, dass er sich erstmal auf medizinische Befragung fokussieren soll " \
+                  "und Sie sich gerne nachher noch Zeit für andere Fragen oder Anregungen nehmen werden. Fahre dann mit der Befragung fort. Falls es hilfreich erscheint, nenne nochmal die offnenen Punkte."
             )
 
-    def internal_instruction(self, task, options=None, true_value=None):
-        context = self.context.copy()
-        if context[-1]["role"] == "user":
-            context.pop()
+    def internal_instruction(self, task, options=None, true_value=None, use_context=True):
+        if use_context:
+            context = self.context.copy()
+        else:
+            context = [] 
         if options is not None:
             grammar = (
                     "root ::= choices\nchoices ::= ("
@@ -94,136 +97,136 @@ class MedicalHistory:
             context.append(
                 {
                     "role": "user",
-                    "content": "Instruction: "
+                    "content": "Anweisung: "
                                + task
-                               + "Select your answer from:"
+                               + "Wähle deine Antwort aus den folgenden Möglichkeiten:"
                                + grammar[1:-1].replace("|", ", " + "!"),
                 }
             )
             grammar = LlamaGrammar.from_string(grammar)
         else:
             grammar = None
-            context.append({"role": "user", "content": "Instruction: " + task})
+            context.append({"role": "user", "content": "Anweisung: " + task})
         with model_lock:
             x = model.create_chat_completion(
                 grammar=grammar, messages=context, temperature=0
             )
         res = x["choices"][0]["message"]["content"]
-        print("========================= internal instruction =====================")
-        print(self.context[-2])
-        print(self.context[-1])
+        print("==================== Internal instruction =====================")
+        print("User:  "+self.context[-2]['content'])
+        print("Model: "+self.context[-1]['content'])
         print("Task: " + task),
-        print("Options: " + str(options)),
+        if options is not None:
+            print("Options: " + str(options)),
         print("Result:" + res)
-        if true_value is not None:
-            print("Boolean" + str(res == true_value))
-        print("=====================================================================")
         return res if true_value is None else res == true_value
 
-    def is_medical_staff_required(self):
+    def medical_staff_required(self):
+        question = self.context[-2]['content']
         if self.internal_instruction(
-                'Your task is to determine if the message of the user is related to the medical assessment. Answer with "yes" or "no"!',
-                ["yes", "no"],
-                "yes",
+            "Die Nachricht des Nutzers lautet:\""
+            + question
+            + '" Klassifiziere: Handelt es sich bei der Nachricht um eine Frage, die medizinisch relevant ist und im Kontext der Befragung steht ?'
+            ' Antworte mit "ja" oder "nein".',
+            ["ja", "nein"],"ja"
         ):
             if self.internal_instruction(
-                    'You are tasked with determining if the message or question of user requires professional medical '
-                    'expertise to be answered safely and accurately. Answer with "yes" if the question should only be '
-                    'answered by qualified healthcare professionals, or "no" if it can be discussed by non-medical persons.',
-                    ["yes", "no"],
-                    "yes",
+                'Die Nachricht des Nutzers lautet: "'
+                + question
+                + '" Klassifiziere: Handelt es sich bei der Nachricht um eine Frage, auf die ausschließlich eine medizinische '
+                'Fachkraft eingehen sollte, dann antworten sie mit "ja". "Falls die Frage im Kontext der aktuellen Befragung steht und dokumentiert werden soll, so antworte mit "nein"',
+                ["ja", "nein"],"ja"
             ):
                 summary = self.internal_instruction(
-                    "Summarize the question of the user in German!"
+                    "Fasse den Kontext und die Frage des Nutzers knapp und neutral zusammen. Die Zusammenfassung ist für eine medizinische Fachkraft bestimmt. Verwende kein Markdown !"
                 )
-                self.questions_for_medical_staff.append(summary)
-                del self.context[-1:]
-                self.context.append(
-                    {
-                        "role": "model",
-                        "content": self.internal_instruction(
+                self.questions_for_medical_staff += "\n"
+                del self.context[-2:]
+                return self.internal_instruction(
                             'Erklären Sie dem Patienten, dass diese Frage von einer medizinischen Fachkraft beantwortet werden muss und sie'
-                            'daher weitergeleitet wird und man auf ihn zukommen wird. Sag ihm, dass folgende Frage weitergeleitet wurde:'
-                            + summary
-                        ),
-                    }
-                )
-                return True
+                            'daher weitergeleitet wird. Sag ihm, dass die folgende Nachricht an die Medizinische Fachkraft geschickt wird. Nachricht: "'
+                            + summary + '".Versichere dem Patienten, dass die medizinische Fachkraft auf ihn zukommen wird. Verwende kein Markdown.'
+                        )
             else:
-                return False
+                None 
         else:
-            return False
-
-    def process_question(self):
+            None
+    def classify_message(self):
         options = [v.name for _, v in self.current_query_group.queries.items()]
         options.append("Sonstiges")
-        question = self.context[-2]["content"]
+        message = self.context[-2]["content"]
         res = self.internal_instruction(
-            "Your are tasked with classifying the best matching context of the last question of user based on the dialogue? Answer in German with just one word! ",
-            options,
+            "Die Frage Nachricht des Nutzers lautet:\""
+            + message
+            + "\" Klassifiziere: Zu welchen dieser Themen passt die Frage am Besten ? Antworte mit einem der passenden Themen.",
+            options
         )
+        return res
+
+    def process_question(self):
+        res = self.classify_message()
+        question = self.context[-2]['content']
         if res == "Sonstiges":
-            if not self.is_medical_staff_required():
-                question = self.context[-2]['content']
+            ms = self.medical_staff_required()
+            if ms is None:
                 del self.context[-2:]
                 return self.internal_instruction(
                     'Antworten Sie kurz und knapp auf die Frage des Patienten: '
                     + question
-                    + '. Markieren Sie die Antwort mit (NICHT VERIFIZIERT) Falls die Frage nicht im Zusammenhang mit der Befragung steht, so '
-                      'erklären Sie freundlich, dass er sich erstmal auf die medizinische Befragung fokussieren soll.' 
-                      'und Sie sich gerne nachher noch Zeit für andere Fragen oder Anregungen nehmen werden'
+                    + '. Falls die Frage nicht im Zusammenhang mit den aktuellen Punkten steht, so '
+                      'erklären Sie freundlich, dass er sich erstmal auf die medizinische Befragung zu den aktuellen Punkten fokussieren soll' 
+                      ' und Sie sich gerne nachher noch Zeit für andere Fragen oder Anregungen nehmen werden. '
+                      'Wiederhole dann nochmal die letzte Frage an den Patienten.'
                 )
+            else:
+                return ms
         else:
             for i, (k, v) in enumerate(self.current_query_group.queries.items()):
                 if res == v.name:
                     if self.internal_instruction(
-                            "You have the following Information: "
+                            "Sie haben die folgenden verifizierten Informationen: "
                             + v.additional_info
-                            + "The patient has the following question: "
+                            + "Der Patient hat die folgende Frage gestellt: "
                             + question
-                            + ' Determine if you can answer the question of the patient based on the given information.! Answer with "yes" or "no"',
-                            ["yes", "no"],
+                            + ' Können Sie die Frage basierend auf den verifizierten Informationen beantworten ? Antworten Sie mit "ja" or "nein"',
+                            ["ja", "nein"],"ja",use_context=False
                     ):
-                        del self.context[-1:]
-                        self.context.append(
-                            {
+                        self.context[-1] = {
                                 "role": "model",
                                 "content": self.internal_instruction(
                                     "Information: "
                                     + v.additional_info
                                     + ". Beantworte folgende Frage basierend auf der Information: "
                                     + question
-                                    + ". Markieren Sie die Antwort mit (VERIFIZIERT). Dann fahre mit der Befragung fort. Nutze kein Markdown!"
+                                    + ". Danach stelle entweder Fragen im Kontext der Frage des Patienten oder nenne dem Patienten nochmal alle offenen Punkte!"
                                 ),
                             }
-                        )
                         return None
                     else:
-                        self.is_medical_staff_required()
-                        return None
+                        return self.medical_staff_required()
         return None
 
     def process_answer(self):
         if self.internal_instruction(
-                'Determine from the answer of the assistant if the assessment of the medical history has been finished! '
-                'Answer with "yes" if it has been finished or "no" if not!',
-                ["yes", "no"],
-                "yes",
+                'Wurde die medizinische Befragung des Patienten zu seinem Gesundheitszustand beendet ?'
+                'Antworte mit "ja" oder "nein"!',
+                ["ja", "nein"],
+                "ja",
         ):
-            self.current_query_group.summary = self.internal_instruction(
-                "Fasse alle genannten Beschwerden und genannten Vorerkrankungen des Patienten zusammen."
+            self.report += self.internal_instruction(
+                "Erstelle eine vollständige Zusammenfassung aller Beschwerden und Vorerkrankungen von denen der Patient berichtet hat!"
             )
-            self.current_query_group = next(self.query_group_iter, "end")
-            if not self.current_query_group == "end":
+            self.current_query_group = next(self.query_group_iter, None)
+            if not self.current_query_group is None: 
                 self.context = [
                     {
                         "role": "user",
                         "content": 'Sie sind ein medizinischer Assistent. Sie halten sich immer kurz und verwenden niemals Markdown. Sie sind gerade '
                                    'im Gespräch mit einem Patienten und führen eine Anamnese mit ihm durch. Stellen Sie direkt die nächsten Fragen '
-                                   'ohne sich vorzustellen oder Begrüßung!'
-                                   + self.get_query_group_question_context(
-                            self.current_query_group
-                        ),
+                                   'ohne sich vorzustellen oder Begrüßung!Befragen sie den Patienten nur zu den im folgenden genannten Punkten. Falls '
+                                   'der Patient andere Erkrankungen oder Beschwerden anspricht, dann lenke das Gespräch auf die Punkte'
+                                   + self.get_query_group_question_context(self.current_query_group) 
+                                  + ' Beenden Sie danach das Gespräch'
                     }
                 ]
                 with model_lock:
@@ -232,21 +235,17 @@ class MedicalHistory:
                     {"role": "model", "content": x["choices"][0]["message"]["content"]}
                 )
             else:
-                summary = "Patientenbericht: "
-                questions = "Fragen an das medizinische Personal:"
-                for g in self.query_groups:
-                    summary += g.summary + "\n"
+                questions = "Fragen an das medizinische Personal:\n"
                 if len(self.questions_for_medical_staff) > 0:
-                    for q in self.questions_for_medical_staff:
-                        questions += q + "\n"
+                        questions += self.questions_for_medical_staff
                 else:
-                    questions += "keine."
+                    questions += " keine."
                 self.context = [
                     {
                         "role": "user",
                         "content": 'Sie sind ein medizinischer Assistent, Sie halten sich immer kurz und verwenden niemals Markdown. Sie haben '
                                    'gerade ein Anamnese Gespräch abgeschlossen! Folgendes hat sich ergeben:'
-                                   + summary
+                                   + self.report 
                                    + 'Sagen Sie dem Patienten, dass die Befragung fertig ist. Fassen Sie den Patientenbericht kurz zusammen. '
                                      'Folgende Fragen sind gehen an das medizinische Personal: '
                                    + questions
@@ -258,94 +257,96 @@ class MedicalHistory:
                 self.status = "completed"
                 return x["choices"][0]["message"]["content"]
         else:
-            if not self.internal_instruction(
-                    'Are the last messages of user and model still in context of the medical history assessment addressing '
-                    'the issues annotated mit "PUNKTE:"',
-                    ["yes", "no"],
-                    "yes",
+            res = self.classify_message()
+            answer = self.context[-2]['content']
+            if self.internal_instruction(
+                "Die Nachricht des Nutzers lautet:\""
+                + answer
+                + '" Klassifiziere: Handelt es sich bei der Nachricht um eine Aussage oder Frage, die medizinisch relevant ist und im Kontext der Befragung steht ?'
+                ' Antworte mit "ja" oder "nein".',
+                ["ja", "nein"],"ja"
             ):
-                del self.context[-1:]
-                self.context.append(
-                    {
-                        "role": "model",
-                        "content": self.internal_instruction(
-                            "Nenne dem Patienten dazu auch nochmal alle noch offenen Punkte !"
-                        ),
-                    }
-                )
                 return None
+            else:
+                del self.context[-2:]
+                return self.internal_instruction(
+                    'Antworten Sie kurz und knapp auf die Aussage des Patienten: '
+                    + answer
+                    + '. Sagen Sie ihm er solle sich erstmal auf die Befragung fokussieren.'
+                    'Wiederhole dann nochmal die letzte Frage an den Patienten.'
+                )
+            return None
 
     def generate_fhir_bundle(self):
         for g in self.query_groups:
-            if len(g.summary) > 0:
-                for _, q in g.queries.items():
-                    print(q.name)
-                    grammar = 'root ::= choices\nchoices ::= ("true"|"false")'
-                    grammar = LlamaGrammar.from_string(grammar)
-                    context = [
-                        {
-                            "role": "user",
-                            "content": "Patientenbericht: "
-                                       + g.summary
-                                       + " Anweisung:"
-                                       + q.match_prompt,
-                        }
-                    ]
-                    with model_lock:
-                        x = model.create_chat_completion(
-                            grammar=grammar, messages=context, temperature=0
+            for _, q in g.queries.items():
+                print(q.name)
+                grammar = 'root ::= choices\nchoices ::= ("true"|"false")'
+                grammar = LlamaGrammar.from_string(grammar)
+                context = [
+                    {
+                        "role": "user",
+                        "content": "Patientenbericht: "
+                                    + self.report
+                                    + " Anweisung:"
+                                    + q.match_prompt,
+                    }
+                ]
+                with model_lock:
+                    x = model.create_chat_completion(
+                        grammar=grammar, messages=context, temperature=0
+                    )
+                res = x["choices"][0]["message"]["content"]
+                if res == "true":
+                    if q.type == "Observation":
+                        context.append(
+                            {
+                                "role": "model",
+                                "content": "Der Patient berichtet ueber folgende Beschwerde:"
+                                            + str(q.name),
+                            }
                         )
-                    res = x["choices"][0]["message"]["content"]
-                    if res == "true":
-                        if q.type == "Observation":
-                            context.append(
-                                {
-                                    "role": "model",
-                                    "content": "Der Patient berichtet ueber folgende Beschwerde:"
-                                               + str(q.name),
-                                }
+                        context.append(
+                            {
+                                "role": "user",
+                                "content": "Extrahiere aus dem Patientenbericht die relevanten Informationen zu "
+                                            + str(q.name)
+                                            + " und fasse sie zusammen",
+                            }
+                        )
+                        with model_lock:
+                            x = model.create_chat_completion(
+                                messages=context, temperature=0
                             )
-                            context.append(
-                                {
-                                    "role": "user",
-                                    "content": "Extrahiere aus dem Patientenbericht die relevanten Informationen zu "
-                                               + str(q.name)
-                                               + " und fasse sie zusammen",
-                                }
+                        res = x["choices"][0]["message"]["content"]
+                        self.add_query_result(
+                            QueryResult(self.subject_reference, q, res)
+                        )
+                    elif q.type == "Condition":
+                        context.append(
+                            {
+                                "role": "model",
+                                "content": 'Der Patient berichtet ueber folgende chronische oder bestehende '
+                                            'diagnostizierte Erkrankungen:'
+                                            + str(q.name),
+                            }
+                        )
+                        context.append(
+                            {
+                                "role": "user",
+                                "content": 'Extrahiere aus dem Patientenbericht die relevanten Informationen zu '
+                                            + str(q.name)
+                                            + " und fasse sie zusammen",
+                            }
+                        )
+                        with model_lock:
+                            x = model.create_chat_completion(
+                                messages=context, temperature=0
                             )
-                            with model_lock:
-                                x = model.create_chat_completion(
-                                    messages=context, temperature=0
-                                )
-                            res = x["choices"][0]["message"]["content"]
-                            self.add_query_result(
-                                QueryResult(self.subject_reference, q, res)
-                            )
-                        elif q.type == "Condition":
-                            context.append(
-                                {
-                                    "role": "model",
-                                    "content": 'Der Patient berichtet ueber folgende chronische oder bestehende '
-                                               'diagnostizierte Erkrankungen:'
-                                               + str(q.name),
-                                }
-                            )
-                            context.append(
-                                {
-                                    "role": "user",
-                                    "content": 'Extrahiere aus dem Patientenbericht die relevanten Informationen zu '
-                                               + str(q.name)
-                                               + " und fasse sie zusammen",
-                                }
-                            )
-                            with model_lock:
-                                x = model.create_chat_completion(
-                                    messages=context, temperature=0
-                                )
-                            res = x["choices"][0]["message"]["content"]
-                            self.add_query_result(
-                                QueryResult(self.subject_reference, q, res)
-                            )
+                        res = x["choices"][0]["message"]["content"]
+                        self.add_query_result(
+                            QueryResult(self.subject_reference, q, res)
+                        )
 
         bundle = {
             "resourceType": "Bundle",
@@ -379,14 +380,16 @@ class MedicalHistory:
             self.context = [
                 {
                     "role": "user",
-                    "content": 'Sie sind ein medizinischer Assistent names Anna, Sie halten sich immer kurz verwenden niemals Markdown. '
+                    "content": 'Sie sind ein medizinischer Assistent, Sie halten sich immer kurz verwenden niemals Markdown. '
                                'Stellen Sie sich kurz vor. Erklären Sie dem Patienten, dass Sie eine Reihe von Fragen zu seinem aktuellen '
-                               'Gesundheitszustand und seiner Krankengeschichte stellen um sich ein umfassendes Bild zu machen.'
-                               + self.get_query_group_question_context(self.current_query_group),
+                               'Gesundheitszustand und seiner Krankengeschichte stellen um sich ein umfassendes Bild zu machen. '
+                               'Befragen sie den Patienten nur zu den im folgenden genannten Punkten. Falls er andere Erkrankungen oder Beschwerden anspricht, '
+                               'dann lenke das Gespräch auf die folgenden Punkte'
+                               + self.get_query_group_question_context(self.current_query_group) + 'Beenden Sie danach das Gespräch'
                 }
             ]
             self.status = "inprogress"
-        elif self.status is "completed":
+        elif self.status == "completed":
             return "Die Anamnese wurde bereits erhoben"
         else:
             self.context.append({"role": "user", "content": user_message})

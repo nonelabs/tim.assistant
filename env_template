@@ -1,0 +1,4 @@
+# Create a .env file in your project root
+TIM_USERNAME=""
+TIM_PASSWORD=""
+TIM_HOMESERVER=""

@@ -1,3 +1,5 @@
+python-dotenv
+aiofiles
 matrix-nio
 openai-whisper
 pydub

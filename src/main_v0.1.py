@@ -3,6 +3,8 @@
 # Email: thomas.fritz@gematik.de
 # License: MIT License
 
+import os
+
 import asyncio
 import argparse
 from datetime import datetime
@@ -11,6 +13,8 @@ from typing import Union
 from llama_cpp import Llama
 from nio import AsyncClient, MatrixRoom, RoomMessageText, InviteMemberEvent
 from nio import RoomMessageAudio
+from dotenv import load_dotenv
+load_dotenv()
 
 llm = Llama(
     model_path="./models/gemma-2-27b-it-Q3_K_L.gguf",
@@ -21,8 +25,11 @@ llm = Llama(
 )
 
 anamnese = {}
-USERNAME = None
+USERNAME = os.environ["TIM_USERNAME"]
+PASSWORD = os.environ["TIM_PASSWORD"]
+HOMESERVER = os.environ["TIM_HOMESERVER"]
 
+START_TIME = int(datetime.now().timestamp()*1000)
 LAST_MSG = int(datetime.now().timestamp() * 1000)
 messages = [{"role": "user",
              "content": "Du bist ein deutschsprachigr Assistent. Fordere mich auf mit der Anamnese zu beginnen und stell mir nacheinander die folgenden Fragen zu meinem "
@@ -43,7 +50,7 @@ messages = [{"role": "user",
 async def message_callback(room: MatrixRoom, event: Union[RoomMessageText, RoomMessageAudio]) -> None:
     global LAST_MSG
     global messages
-    if event.server_timestamp > LAST_MSG and event.sender != f"@{USERNAME}:tim.nonelabs.com":
+    if event.server_timestamp > LAST_MSG and event.sender != f"@{USERNAME}:{HOMESERVER}":
         LAST_MSG = 1e100
         if isinstance(event, RoomMessageText) and len(event.body) > 0:
             message_content = event.body
@@ -75,21 +82,26 @@ async def invite_callback(room: MatrixRoom, event: InviteMemberEvent) -> None:
 
 
 def parse_arguments() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description='tim.assistant v0.1')
-    parser.add_argument('-u', '--username', required=True,
+    parser = argparse.ArgumentParser(description='tim.assistant v0.2')
+    parser.add_argument('-u', '--username', required=False,
                         help='username')
-    parser.add_argument('-p', '--password', required=True,
+    parser.add_argument('-p', '--password', required=False,
                         help='password')
-    parser.add_argument('-s', '--homeserver', default="https://tim.nonelabs.com",
-                        help=f'Matrix homeserver URL (default: {"https://tim.nonelabs.com"})')
+    parser.add_argument('-s', '--homeserver', required=False,
+                        help=f'TIM assistant homeserver')
     return parser.parse_args()
 
 async def main() -> None:
     global client
     global USERNAME
+    global PASSWORD
+    global HOMESERVER
     args = parse_arguments()
-    USERNAME = args.username
-    client = AsyncClient(args.homeserver, args.username)
+    HOMESERVER = args.password if args.password else HOMESERVER
+    USERNAME = args.password if args.password else USERNAME
+    PASSWORD = args.password if args.password else PASSWORD
+
+    client = AsyncClient(f"https://{HOMESERVER}", USERNAME)
     await client.login(args.login)
     client.add_event_callback(message_callback, (RoomMessageText, RoomMessageAudio))
     client.add_event_callback(invite_callback, InviteMemberEvent)
