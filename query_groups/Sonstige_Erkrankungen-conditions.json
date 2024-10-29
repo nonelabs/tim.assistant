@@ -84,18 +84,6 @@
       "inquiry_prompt": "Wurde bei Ihnen jemals eine Nierenerkrankung diagnostiziert?",
       "match_prompt": "Überprüfe, ob die Antwort des Patienten auf eine Nierenerkrankung hindeutet. Achte auf Erwähnungen von eingeschränkter Nierenfunktion, Dialyse, Nierensteinen oder wiederholten Harnwegsinfektionen. Antworte mit true, wenn die Antwort auf eine Nierenerkrankung hinweist, sonst mit false.",
       "additional_info": "Nierenerkrankungen können akut oder chronisch sein und die Fähigkeit der Nieren beeinträchtigen, Abfallprodukte und überschüssige Flüssigkeit aus dem Blut zu filtern. Symptome können Müdigkeit, Schwellungen in den Beinen, häufiges Wasserlassen oder Bluthochdruck sein. Die Behandlung reicht von Medikamenten und Diätanpassungen bis hin zur Dialyse oder Nierentransplantation bei schweren Fällen."
-    },
-    "andere": {
-      "name": "Andere Erkrankung",
-      "type": "Condition",
-      "code": {
-        "system": "http://snomed.info/sct",
-        "code": "64572001",
-        "display": "Disease"
-      },
-      "inquiry_prompt": "Gibt es andere wichtige Erkrankungen oder gesundheitliche Probleme, die wir noch nicht besprochen haben?",
-      "match_prompt": "Prüfe, ob die Antwort des Patienten auf eine bedeutende Erkrankung oder ein gesundheitliches Problem hindeutet, das nicht in den vorherigen Kategorien erfasst wurde. Berücksichtige alle Hinweise auf chronische oder schwerwiegende Gesundheitszustände. Antworte mit true, wenn die Antwort auf eine andere relevante Erkrankung hinweist, sonst mit false.",
-      "additional_info": "Es gibt viele Erkrankungen, die nicht in die vorherigen Kategorien fallen, aber dennoch wichtig für Ihre Gesundheitsversorgung sein können. Dazu können seltene Erkrankungen, genetische Störungen, Autoimmunerkrankungen oder andere chronische Gesundheitszustände gehören. Es ist wichtig, dass Sie Ihren Arzt über alle gesundheitlichen Probleme informieren, auch wenn sie Ihnen möglicherweise nicht schwerwiegend erscheinen."
     }
   }
 }

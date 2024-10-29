@@ -4,12 +4,10 @@
 # License: MIT License
 
 import os
-
 import asyncio
 import argparse
 from datetime import datetime
 from typing import Union
-
 from llama_cpp import Llama
 from nio import AsyncClient, MatrixRoom, RoomMessageText, InviteMemberEvent
 from nio import RoomMessageAudio
@@ -18,9 +16,9 @@ load_dotenv()
 
 llm = Llama(
     model_path="./models/gemma-2-27b-it-Q5_K_M.gguf",
-    n_gpu_layers=-1,  # Uncomment to use GPU acceleration
-    seed=1337,  # Uncomment to set a specific seed
-    n_ctx=4092,  # Uncomment to increase the context window
+    n_gpu_layers=-1,  
+    seed=1337,  
+    n_ctx=4092,  
     verbose=True
 )
 
@@ -32,17 +30,25 @@ HOMESERVER = os.environ["TIM_HOMESERVER"]
 START_TIME = int(datetime.now().timestamp()*1000)
 LAST_MSG = int(datetime.now().timestamp() * 1000)
 messages = [{"role": "user",
-             "content": "Du bist ein deutschsprachigr Assistent. Fordere mich auf mit der Anamnese zu beginnen und stell mir nacheinander die folgenden Fragen zu meinem "
+             "content": "Du bist ein deutschsprachiger Assistent. Fordere mich auf mit der Anamnese zu beginnen und stell mir nacheinander die folgenden Fragen zu meinem "
                         "Gesundheitszustand. Stelle immer nur eine Frage! \n "
                         "1. Jetzige Anamnese: Was sind Ihre aktuellen Beschwerden? oder Seit wann treten die Symptome auf? \n"
+
                         "2. Frühere Anamnese: Hatten Sie in der Vergangenheit ähnliche Symptome? oder Haben Sie früher schon einmal dieselbe Erkrankung gehabt? \n"
+
                         "3. Medikamentenanamnese: Nehmen Sie derzeit Medikamente ein? oder „Haben Sie Allergien oder Unverträglichkeiten gegenüber bestimmten Medikamenten?\n "
+
                         "4. Vegetative Anamnese: Haben Sie Schlafstörungen? oder Haben Sie Veränderungen in Ihrem Appetit oder Gewicht bemerkt? \n" 
+
                         "5. Familienanamnese: Gibt es in Ihrer Familie Vorerkrankungen wie Diabetes oder Herzerkrankungen? oder Hatten Ihre Eltern oder Geschwister ähnliche Gesundheitsprobleme wie Sie? \n "
+
                         "6. Soziale Anamnese: Haben Sie einen Beruf oder eine Tätigkeit, die relevant für Ihre Gesundheit sein könnte? oder Sind Sie verheiratet, ledig, geschieden oder verwitwet? \n"
+
                         "7. Psychiatrische Anamnese: Haben Sie in der Vergangenheit jemals eine psychische Erkrankung gehabt? oder Haben Sie derzeit Stress oder Probleme in Ihrem persönlichen oder beruflichen Leben? \n"
+
                         "8. Eigenanamnese: Wie würden Sie Ihre aktuelle körperliche und mentale Gesundheit beschreiben? oder Haben Sie in letzter Zeit Veränderungen in Ihrem Gesundheitszustand bemerkt? \n" 
-                        "Wenn du alle Informationen hast, bedanke dich und fasse sie in einem FHIR resource bundle zusammen - verwende kein Markdown nur plain text. Dann verabschiede dich. \n"},
+
+                        "Wenn du alle Informationen hast, bedanke dich und fasse sie in einem FHIR bundle als JSON zusammen. Verwende dabei FHIR Observation für Beschwerden und FHIR Conditions für Erkrankungen. Füge jeweils eine Zusammenfassung der relevanten Informationen als Note hinzu .Verwende kein Markdown nur Plain Text. Dann verabschiede dich. \n"},
             {"role": "model", "content": "Verstanden!"}
             ]
 
@@ -93,13 +99,6 @@ def parse_arguments() -> argparse.Namespace:
 
 async def main() -> None:
     global client
-    global USERNAME
-    global PASSWORD
-    global HOMESERVER
-    args = parse_arguments()
-    HOMESERVER = args.password if args.password else HOMESERVER
-    USERNAME = args.password if args.password else USERNAME
-    PASSWORD = args.password if args.password else PASSWORD
 
     client = AsyncClient(f"https://{HOMESERVER}", USERNAME)
     await client.login(PASSWORD)

@@ -134,13 +134,13 @@ class MedicalHistory:
                 'Die Nachricht des Nutzers lautet: "'
                 + question
                 + '" Klassifiziere: Handelt es sich bei der Nachricht um eine Frage, auf die ausschließlich eine medizinische '
-                'Fachkraft eingehen sollte, dann antworten sie mit "ja". "Falls die Frage im Kontext der aktuellen Befragung steht und dokumentiert werden soll, so antworte mit "nein"',
+                'Fachkraft eingehen sollte, dann antworten sie mit "ja". Falls es sich um eine unkritische Frage handelt, die im Kontext der Befragung von einem KI System beantwortet werden kann, antworten Sie mit "nein".',
                 ["ja", "nein"],"ja"
             ):
                 summary = self.internal_instruction(
-                    "Fasse den Kontext und die Frage des Nutzers knapp und neutral zusammen. Die Zusammenfassung ist für eine medizinische Fachkraft bestimmt. Verwende kein Markdown !"
+                    "Fasse die Frage des Nutzers im Kontext der Befragung knapp und neutral zusammen. Verwende kein Markdown !"
                 )
-                self.questions_for_medical_staff += "\n"
+                self.questions_for_medical_staff += "Frage:" + summary + "\n"
                 del self.context[-2:]
                 return self.internal_instruction(
                             'Erklären Sie dem Patienten, dass diese Frage von einer medizinischen Fachkraft beantwortet werden muss und sie'
@@ -148,9 +148,9 @@ class MedicalHistory:
                             + summary + '".Versichere dem Patienten, dass die medizinische Fachkraft auf ihn zukommen wird. Verwende kein Markdown.'
                         )
             else:
-                None 
+                return None 
         else:
-            None
+            return None
     def classify_message(self):
         options = [v.name for _, v in self.current_query_group.queries.items()]
         options.append("Sonstiges")
@@ -158,7 +158,7 @@ class MedicalHistory:
         res = self.internal_instruction(
             "Die Frage Nachricht des Nutzers lautet:\""
             + message
-            + "\" Klassifiziere: Zu welchen dieser Themen passt die Frage am Besten ? Antworte mit einem der passenden Themen.",
+            + "\" Klassifiziere: Zu welchen dieser Themen passt die Frage am Besten ?",
             options
         )
         return res
@@ -174,8 +174,8 @@ class MedicalHistory:
                     'Antworten Sie kurz und knapp auf die Frage des Patienten: '
                     + question
                     + '. Falls die Frage nicht im Zusammenhang mit den aktuellen Punkten steht, so '
-                      'erklären Sie freundlich, dass er sich erstmal auf die medizinische Befragung zu den aktuellen Punkten fokussieren soll' 
-                      ' und Sie sich gerne nachher noch Zeit für andere Fragen oder Anregungen nehmen werden. '
+                      'erklären Sie freundlich, dass sich der Patient erstmal auf die medizinische Befragung zu den aktuellen Punkten fokussieren soll' 
+                      ' und Sie sich gerne nacproud for nothing memehher noch Zeit für andere Fragen oder Anregungen nehmen werden. '
                       'Wiederhole dann nochmal die letzte Frage an den Patienten.'
                 )
             else:
@@ -244,7 +244,7 @@ class MedicalHistory:
                 self.context = [
                     {
                         "role": "user",
-                        "content": 'Sie sind ein medizinischer Assistent, Sie halten sich immer kurz und verwenden niemals Markdown. Sie haben '
+                        "content": 'Sie sind ein medizinischer Assistent, Sie sprechen immer Deutsch und halten sich immer kurz und verwenden niemals Markdown. Sie haben '
                                    'gerade ein Anamnese Gespräch abgeschlossen! Folgendes hat sich ergeben:'
                                    + self.report 
                                    + 'Sagen Sie dem Patienten, dass die Befragung fertig ist. Fassen Sie den Patientenbericht kurz zusammen. '
@@ -370,7 +370,6 @@ class MedicalHistory:
                 "resource": resource.copy(),
             }
             bundle["entry"].append(entry)
-        print(json.dumps(bundle, indent=True))
         return bundle
 
     def next(self, user_message):
@@ -380,7 +379,7 @@ class MedicalHistory:
             self.context = [
                 {
                     "role": "user",
-                    "content": 'Sie sind ein medizinischer Assistent, Sie halten sich immer kurz verwenden niemals Markdown. '
+                    "content": 'Sie sind ein medizinischer Assistent, Sie sprechen immer Deutsch. Sie halten sich immer kurz verwenden niemals Markdown. '
                                'Stellen Sie sich kurz vor. Erklären Sie dem Patienten, dass Sie eine Reihe von Fragen zu seinem aktuellen '
                                'Gesundheitszustand und seiner Krankengeschichte stellen um sich ein umfassendes Bild zu machen. '
                                'Befragen sie den Patienten nur zu den im folgenden genannten Punkten. Falls er andere Erkrankungen oder Beschwerden anspricht, '
