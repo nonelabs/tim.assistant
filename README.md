@@ -16,13 +16,13 @@ Clone Repo
 > ./install_venv.sh
 > source venv/bin/activate
 
-# Configuration
+## Configuration
 > copy env_template .env
 > 
-# Modify a .env file in your project root
+## Modify a .env file in your project root
 > TIM_USERNAME="USER"
 > TIM_PASSWORD="PASSWORD"
 > TIM_HOMESERVER="matrix.org"
 
-# Run
+## Run
 > python src/main -q query_groups
