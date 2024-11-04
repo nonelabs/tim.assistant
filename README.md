@@ -1,6 +1,8 @@
 # TIM Messenger - AI assistant for medical history assessment
 
 ## Install requirements (Ubuntu)
+Install NVIDIA drivers and CUDA if not yet done.
+
 Figure out CUDA Version
 ```
 nvidia-smi
