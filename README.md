@@ -1,5 +1,8 @@
 # TIM Messenger - AI assistant for medical history assessment
 
+Example Python implementation of an LLM-based assistant that can conduct medical history interviews through the Matrix messaging platform. 
+The focus is on simplicity and comprehensibility rather than employing state-of-the-art methods. 
+
 ## Install requirements (Ubuntu)
 Install NVIDIA drivers and CUDA if not yet done.
 
