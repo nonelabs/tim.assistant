@@ -1,6 +1,6 @@
 # TIM Messenger - AI assistant for medical history assessment
 
-Example implementation of a LLM-based assistant that conducts medical history interviews via Matrix messenger protocol, provides predefined medical information on request, and outputs standardized FHIR bundles containing conditions and observations. 
+Example python implementation of an LLM-based assistant that conducts medical history interviews via Matrix messenger protocol, provides predefined medical information on request, and outputs standardized FHIR bundles containing conditions and observations. 
 
 The focus is on simplicity and comprehensibility rather than employing state-of-the-art methods. 
 
