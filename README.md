@@ -32,4 +32,6 @@ TIM_PASSWORD="PASSWORD"
 TIM_HOMESERVER="matrix.org"
 ```
 ## Run
-> python src/main -q query_groups
+```
+python src/main -q query_groups
+```
