@@ -27,7 +27,10 @@ source venv/bin/activate
 ```
 copy env_template .env
 ```
-## Modify a .env file in your project root
+## Define homeserver and credentials
+
+Edit .env file
+
 ```
 TIM_USERNAME="USER"
 TIM_PASSWORD="PASSWORD"
