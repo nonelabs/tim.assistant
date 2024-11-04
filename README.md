@@ -1,12 +1,10 @@
 # TIM Messenger - AI assistant for medical history assessment
 
 ## Install requirements (Ubuntu)
-Check you CUDA Version
+Figure out CUDA Version
 ```
 nvidia-smi
 ```
-Figure out CUDA Version
-
 ![image](https://github.com/user-attachments/assets/07d4a27a-da4f-473d-82b2-e69b0e86fb41)
 
 Install cublas and cuda compiler
