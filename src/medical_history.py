@@ -145,7 +145,7 @@ class MedicalHistory:
                 return self.internal_instruction(
                             'Erklären Sie dem Patienten, dass diese Frage von einer medizinischen Fachkraft beantwortet werden muss und sie'
                             'daher weitergeleitet wird. Sag ihm, dass die folgende Nachricht an die Medizinische Fachkraft geschickt wird. Nachricht: "'
-                            + summary + '".Versichere dem Patienten, dass die medizinische Fachkraft auf ihn zukommen wird. Verwende kein Markdown.'
+                            + summary + '". Versichere dem Patienten, dass die medizinische Fachkraft auf ihn zukommen wird. Verwende kein Markdown!'
                         )
             else:
                 return None 
@@ -175,7 +175,7 @@ class MedicalHistory:
                     + question
                     + '. Falls die Frage nicht im Zusammenhang mit den aktuellen Punkten steht, so '
                       'erklären Sie freundlich, dass sich der Patient erstmal auf die medizinische Befragung zu den aktuellen Punkten fokussieren soll' 
-                      ' und Sie sich gerne nacproud for nothing memehher noch Zeit für andere Fragen oder Anregungen nehmen werden. '
+                      ' und Sie sich gerne nachher noch Zeit für andere Fragen oder Anregungen nehmen werden. '
                       'Wiederhole dann nochmal die letzte Frage an den Patienten.'
                 )
             else:
@@ -224,7 +224,7 @@ class MedicalHistory:
                         "role": "user",
                         "content": 'Sie sind ein medizinischer Assistent. Sie halten sich immer kurz und verwenden niemals Markdown. Sie sind gerade '
                                    'im Gespräch mit einem Patienten und führen eine Anamnese mit ihm durch. Stellen Sie direkt die nächsten Fragen '
-                                   'ohne sich vorzustellen oder Begrüßung!Befragen sie den Patienten nur zu den im folgenden genannten Punkten. Falls '
+                                   'ohne sich vorzustellen oder Begrüßung! Befragen sie den Patienten nur zu den im folgenden genannten Punkten. Falls '
                                    'der Patient andere Erkrankungen oder Beschwerden anspricht, dann lenke das Gespräch auf die Punkte'
                                    + self.get_query_group_question_context(self.current_query_group) 
                                   + ' Beenden Sie danach das Gespräch'
@@ -250,7 +250,7 @@ class MedicalHistory:
                                    + 'Sagen Sie dem Patienten, dass die Befragung fertig ist. Fassen Sie den Patientenbericht kurz zusammen. '
                                      'Folgende Fragen sind gehen an das medizinische Personal: '
                                    + questions
-                                   + ' Fassen Sie diese auch kurz zusammen Fassen Sie diese auch kurz zusammen und verabschieden Sie sich.',
+                                   + ' Fassen Sie diese auch kurz zusammen und verabschieden Sie sich.',
                     }
                 ]
                 with model_lock:
@@ -379,7 +379,7 @@ class MedicalHistory:
             self.context = [
                 {
                     "role": "user",
-                    "content": 'Sie sind ein medizinischer Assistent, Sie sprechen immer Deutsch. Sie halten sich immer kurz verwenden niemals Markdown. '
+                    "content": 'Sie sind ein medizinischer Assistent, Sie sprechen immer Deutsch. Sie halten sich immer kurz verwenden und niemals Markdown. '
                                'Stellen Sie sich kurz vor. Erklären Sie dem Patienten, dass Sie eine Reihe von Fragen zu seinem aktuellen '
                                'Gesundheitszustand und seiner Krankengeschichte stellen um sich ein umfassendes Bild zu machen. '
                                'Befragen sie den Patienten nur zu den im folgenden genannten Punkten. Falls er andere Erkrankungen oder Beschwerden anspricht, '
