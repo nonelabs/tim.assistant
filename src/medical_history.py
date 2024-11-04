@@ -100,7 +100,7 @@ class MedicalHistory:
                     "content": "Anweisung: "
                                + task
                                + "Wähle deine Antwort aus den folgenden Möglichkeiten:"
-                               + grammar[1:-1].replace("|", ", " + "!"),
+                               + grammar[1:-1].replace("|", ", ") + "!"
                 }
             )
             grammar = LlamaGrammar.from_string(grammar)
